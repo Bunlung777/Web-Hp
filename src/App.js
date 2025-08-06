@@ -41,8 +41,8 @@ const [showNextForm, setShowNextForm] = useState(false);
     }
     else if (mcv >= 80 && mch >= 27 && dcip === "positive") {
       setStep1Result({
-              type: 'normal',
-              title: 'ไม่พบพาหะ',
+              type: 'unnormal',
+              title: 'ปกติ - ไม่เสี่ยงต่อราลัสซีเมีย',
               details: [
                 'ไม่มี α หรือ β-thalassemia แต่มี Hb E',
               ],
@@ -52,10 +52,10 @@ const [showNextForm, setShowNextForm] = useState(false);
     }
     else if ((mcv < 80 || mch < 27) && dcip === "positive") {
       setStep1Result({
-              type: 'normal',
-              title: 'ไม่พบพาหะ',
+              type: 'unnormal',
+              title: 'มีความเสี่ยงต่อราลัสซีเมีย',
               details: [
-                'อาจมี ไม่มี α หรือ β-thalassemia แต่มี Hb E',
+                'อาจมี α หรือ β-thalassemia และ มี Hb E',
               ],
               advice: 'ตรวจเลือดสามีเพื่อประเมินความเสี่ยงทารก'
             })
@@ -74,7 +74,7 @@ const [showNextForm, setShowNextForm] = useState(false);
     if (mcv >= 80 && mch >= 27 && dcip === "negative") {
       setStep2Result({
         type: 'normal',
-        title: 'ไม่พบพาหะ',
+        title: 'ปกติ - ไม่เสี่ยงต่อราลัสซีเมีย',
         details: [
           'ไม่เป็นธาลัสซีเมียรุนแรง'
         ],
@@ -83,8 +83,8 @@ const [showNextForm, setShowNextForm] = useState(false);
     } 
     else if ((mcv < 80 || mch < 27) && dcip === "negative"){
      setStep2Result({
-        type: 'normal',
-        title: 'ไม่พบพาหะ',
+        type: 'unnormal',
+        title: 'มีความเสี่ยงต่อราลัสซีเมีย',
         details: [
           'อาจมี α หรือ β-thalassemia',
         ],
@@ -93,8 +93,8 @@ const [showNextForm, setShowNextForm] = useState(false);
     }
     else if (mcv >= 80 && mch >= 27 && dcip === "positive") {
       setStep2Result({
-              type: 'normal',
-              title: 'ไม่พบพาหะ',
+              type: 'unnormal',
+              title: 'ปกติ - ไม่เสี่ยงต่อราลัสซีเมีย',
               details: [
                 'ไม่มี α หรือ β-thalassemia แต่มี Hb E',
               ],
@@ -103,10 +103,10 @@ const [showNextForm, setShowNextForm] = useState(false);
     }
     else if ((mcv < 80 || mch < 27) && dcip === "positive") {
       setStep2Result({
-              type: 'normal',
-              title: 'ไม่พบพาหะ',
+              type: 'unnormal',
+              title: 'มีความเสี่ยงต่อราลัสซีเมีย',
               details: [
-                'อาจมี ไม่มี α หรือ β-thalassemia แต่มี Hb E',
+                'อาจมี α หรือ β-thalassemia และมี Hb E',
               ],
               advice: 'ส่งตรวจ Hb typing ทั้งคู่'
             })  
