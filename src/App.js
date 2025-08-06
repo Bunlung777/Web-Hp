@@ -160,7 +160,7 @@ const [showNextForm, setShowNextForm] = useState(false);
           <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-4 sm:p-6">
             <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white flex items-center">
               <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white/20 rounded-full flex items-center justify-center mr-2 sm:mr-3">
-                <span className="text-white font-bold text-sm sm:text-base">1</span>
+                <span className="text-white font-bold text-sm sm:text-2xl">1</span>
               </div>
               ผลเลือดหญิงตั้งครรภ์
             </h2>
@@ -312,9 +312,9 @@ const [showNextForm, setShowNextForm] = useState(false);
           <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-4 sm:p-6">
             <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white flex items-center">
               <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white/20 rounded-full flex items-center justify-center mr-2 sm:mr-3">
-                <span className="text-white font-bold text-sm sm:text-base">1</span>
+                <span className="text-white font-bold text-sm sm:text-2xl">2</span>
               </div>
-              ผลเลือดหญิงตั้งครรภ์
+               ผลเลือดสามี
             </h2>
           </div>
           
@@ -381,34 +381,34 @@ const [showNextForm, setShowNextForm] = useState(false);
           </div>
         </div>
 
-        {/* Step 1 Result */}
+        {/* Step 2 Result */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 overflow-hidden">
           <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-4 sm:p-6">
             <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white flex items-center">
               <FileText className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
-              ผลการวิเคราะห์หญิงตั้งครรภ์
+              ผลการวิเคราะห์สุดท้าย
             </h2>
           </div>
           
           <div className="p-4 sm:p-6 lg:p-8">
-            {step1Result ? (
+            {step2Result ? (
               <div className={`p-4 sm:p-6 rounded-xl sm:rounded-2xl transition-all duration-500 ${
-                step1Result.type === 'normal' 
+                step2Result.type === 'normal' 
                   ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200' 
                   : 'bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-200'
               }`}>
                 {/* Result Header */}
                 <div className="flex items-start sm:items-center mb-4 gap-3 sm:gap-4">
                   <div className={`w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
-                    step1Result.type === 'normal' ? 'bg-green-500' : 'bg-yellow-500'
+                    step2Result.type === 'normal' ? 'bg-green-500' : 'bg-yellow-500'
                   }`}>
-                    {step1Result.type === 'normal' ? 
+                    {step2Result.type === 'normal' ? 
                       <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" /> : 
                       <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
                     }
                   </div>
                   <h3 className="font-bold text-base sm:text-lg lg:text-xl text-gray-800 leading-tight">
-                    {step1Result.title}
+                    {step2Result.title}
                   </h3>
                 </div>
                 
@@ -416,9 +416,9 @@ const [showNextForm, setShowNextForm] = useState(false);
                 <div className="mb-4">
                   <p className="font-semibold text-base sm:text-lg text-gray-800 mb-2">แนวคิด:</p>
                   <div className="space-y-2">
-                    {step1Result.details.map((detail, index) => (
+                    {step2Result.details.map((detail, index) => (
                       <div key={index} className={`text-sm sm:text-base text-gray-700 pl-3 sm:pl-4 border-l-4 p-2 sm:p-3 rounded-lg ${
-                        step1Result.type === 'normal' 
+                        step2Result.type === 'normal' 
                           ? 'border-green-300 bg-white' 
                           : 'border-yellow-300 bg-white'
                       }`}>
@@ -432,11 +432,11 @@ const [showNextForm, setShowNextForm] = useState(false);
                 <div>
                   <p className="font-semibold text-base sm:text-lg text-gray-800 mb-2">คำแนะนำ:</p>
                   <div className={`text-sm sm:text-base text-gray-700 pl-3 sm:pl-4 border-l-4 p-2 sm:p-3 rounded-lg ${
-                    step1Result.type === 'normal' 
+                    step2Result.type === 'normal' 
                       ? 'border-green-300 bg-white' 
                       : 'border-yellow-300 bg-white'
                   }`}>
-                    {step1Result.advice}
+                    {step2Result.advice}
                   </div>
                 </div>
               </div>
@@ -477,74 +477,77 @@ const [showNextForm, setShowNextForm] = useState(false);
   </div>
 
         {/* Reference Guide */}
-        <div className="flex items-center justify-center">
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 overflow-hidden w-[1000px]">
-          <div className="bg-gradient-to-r from-teal-500 to-cyan-600 p-6">
-            <h2 className="text-2xl font-bold text-white text-center flex items-center justify-center">
-              <FileText className="w-6 h-6 mr-3" />
-              คู่มืออ้างอิง
-            </h2>
-          </div>
-          
-          <div className="p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-2xl border border-blue-200">
-                <h3 className="font-bold text-2xl mb-4 text-gray-800 flex items-center">
-                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mr-3">
-                    <Activity className="w-8 h-8 text-white" />
-                  </div>
-                  ค่าอ้างอิง
-                </h3>
-                <div className="space-y-3 text-[16px]">
-                  <div className="flex items-center p-3 bg-white/50 rounded-lg">
-                    <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-                    <span>MCV ปกติ: ≥ 80 fL</span>
-                  </div>
-                  <div className="flex items-center p-3 bg-white/50 rounded-lg">
-                    <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-                    <span>MCH ปกติ: ≥ 27 pg</span>
-                  </div>
-                  <div className="flex items-center p-3 bg-white/50 rounded-lg">
-                    <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-                    <span>DCIP NEGATIVE: ไม่มี Hb E</span>
-                  </div>
-                  <div className="flex items-center p-3 bg-white/50 rounded-lg">
-                    <span className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></span>
-                    <span>DCIP POSITIVE: มี Hb E</span>
-                  </div>
+ <div className="flex items-center justify-center p-4">
+      <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 overflow-hidden w-full max-w-6xl">
+        <div className="bg-gradient-to-r from-teal-500 to-cyan-600 p-4 sm:p-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-white text-center flex items-center justify-center">
+            <FileText className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
+            คู่มืออ้างอิง
+          </h2>
+        </div>
+        <div className="p-4 sm:p-6 lg:p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+            
+            {/* ค่าอ้างอิง Section */}
+            <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-4 sm:p-6 rounded-2xl border border-blue-200">
+              <h3 className="font-bold text-lg sm:text-xl lg:text-2xl mb-3 sm:mb-4 text-gray-800 flex items-center">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-blue-500 rounded-full flex items-center justify-center mr-2 sm:mr-3">
+                  <Activity className="w-4 h-4 sm:w-6 sm:h-6 lg:w-8 lg:h-8 text-white" />
                 </div>
-              </div>
-              
-              <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-2xl border border-purple-200">
-                <h3 className="font-bold text-2xl mb-4 text-gray-800 flex items-center">
-                  <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mr-3">
-                    <CheckCircle className="w-8 h-8 text-white" />
-                  </div>
-                  การแปลผล
-                </h3>
-                <div className="space-y-3 text-[16px]">
-                  <div className="flex items-center p-3 bg-white/50 rounded-lg">
-                    <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-                    <span>ไม่เสี่ยง: ไม่จำเป็นตรวจเพิ่มเติม</span>
-                  </div>
-                  <div className="flex items-center p-3 bg-white/50 rounded-lg">
-                    <span className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></span>
-                    <span>เสี่ยง: ส่งตรวจ Hb typing</span>
-                  </div>
-                  <div className="flex items-center p-3 bg-white/50 rounded-lg">
-                    <span className="w-2 h-2 bg-red-500 rounded-full mr-3"></span>
-                    <span>α-thalassemia: มีดา 1 และ 2</span>
-                  </div>
-                  <div className="flex items-center p-3 bg-white/50 rounded-lg">
-                    <span className="w-2 h-2 bg-red-500 rounded-full mr-3"></span>
-                    <span>β-thalassemia: β0 และ β+</span>
-                  </div>
+                ค่าอ้างอิง
+              </h3>
+              <div className="space-y-2 sm:space-y-3 text-sm sm:text-base">
+                <div className="flex items-center p-2 sm:p-3 bg-white/50 rounded-lg">
+                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2 sm:mr-3 flex-shrink-0"></span>
+                  <span className="break-words">MCV ปกติ: ≥ 80 fL</span>
+                </div>
+                <div className="flex items-center p-2 sm:p-3 bg-white/50 rounded-lg">
+                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2 sm:mr-3 flex-shrink-0"></span>
+                  <span className="break-words">MCH ปกติ: ≥ 27 pg</span>
+                </div>
+                <div className="flex items-center p-2 sm:p-3 bg-white/50 rounded-lg">
+                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2 sm:mr-3 flex-shrink-0"></span>
+                  <span className="break-words">DCIP NEGATIVE: ไม่มี Hb E</span>
+                </div>
+                <div className="flex items-center p-2 sm:p-3 bg-white/50 rounded-lg">
+                  <span className="w-2 h-2 bg-yellow-500 rounded-full mr-2 sm:mr-3 flex-shrink-0"></span>
+                  <span className="break-words">DCIP POSITIVE: มี Hb E</span>
                 </div>
               </div>
             </div>
+            
+            {/* การแปลผล Section */}
+            <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 sm:p-6 rounded-2xl border border-purple-200">
+              <h3 className="font-bold text-lg sm:text-xl lg:text-2xl mb-3 sm:mb-4 text-gray-800 flex items-center">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-purple-500 rounded-full flex items-center justify-center mr-2 sm:mr-3">
+                  <CheckCircle className="w-4 h-4 sm:w-6 sm:h-6 lg:w-8 lg:h-8 text-white" />
+                </div>
+                การแปลผล
+              </h3>
+              <div className="space-y-2 sm:space-y-3 text-sm sm:text-base">
+                <div className="flex items-center p-2 sm:p-3 bg-white/50 rounded-lg">
+                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2 sm:mr-3 flex-shrink-0"></span>
+                  <span className="break-words">ไม่เสี่ยง: ไม่จำเป็นตรวจเพิ่มเติม</span>
+                </div>
+                <div className="flex items-center p-2 sm:p-3 bg-white/50 rounded-lg">
+                  <span className="w-2 h-2 bg-yellow-500 rounded-full mr-2 sm:mr-3 flex-shrink-0"></span>
+                  <span className="break-words">เสี่ยง: ส่งตรวจ Hb typing</span>
+                </div>
+                <div className="flex items-center p-2 sm:p-3 bg-white/50 rounded-lg">
+                  <span className="w-2 h-2 bg-red-500 rounded-full mr-2 sm:mr-3 flex-shrink-0"></span>
+                  <span className="break-words">α-thalassemia: มีดา 1 และ 2</span>
+                </div>
+                <div className="flex items-center p-2 sm:p-3 bg-white/50 rounded-lg">
+                  <span className="w-2 h-2 bg-red-500 rounded-full mr-2 sm:mr-3 flex-shrink-0"></span>
+                  <span className="break-words">β-thalassemia: β0 และ β+</span>
+                </div>
+              </div>
+            </div>
+            
           </div>
         </div>
-        </div>
+      </div>
+    </div>
 </div>
   );
 };
