@@ -120,7 +120,7 @@ const [showNextForm, setShowNextForm] = useState(false);
   return (
  <div className="font-kanit mx-auto bg-white px-4 sm:px-6 lg:px-8 py-4 sm:py-6 max-w-[1600px]">
   {/* Header */}
-    <div className="p-4">
+    <div className="">
       {/* Mobile Layout: Images on top row, text below */}
       <div className="flex flex-col sm:hidden mb-6 border-b border-gray-300 pb-4 space-y-4">
         {/* Top row with images */}
