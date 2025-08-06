@@ -149,7 +149,7 @@ const [showNextForm, setShowNextForm] = useState(false);
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="p-3 sm:p-4 rounded-lg col-span-1 sm:col-span-2 lg:col-span-1">
             <h3 className="font-semibold text-lg sm:text-xl lg:text-[25px] mb-2">วัตถุประสงค์</h3>
-            <p className="text-gray-600 text-sm sm:text-base lg:text-[17px]">
+            <p className="text-gray-600 text-sm sm:text-base lg:text-[15px]">
               เพื่อค้นหาโรคเลือดจางธาลัสซีเมียขณะตั้งครรภ์
             </p>
           </div>
