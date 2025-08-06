@@ -123,7 +123,7 @@ const [showNextForm, setShowNextForm] = useState(false);
   <div className="flex items-center justify-between mb-12 border-b border-gray-300 pb-4">
     <img src={Hp} className="w-[170px] h-auto rounded" />
     <h1 className="text-[32px] font-bold text-gray-800 text-center flex-1">
-      การตรวจคัดกรองธาลัสซีเมียในหญิงตั้งครรภ์
+      การตรวจคัดกรองธาลัสซีเมียในหญิงตั้งครรภ์1
     </h1>
     <img src={Lru} className="w-[170px] h-auto rounded" />
   </div>
