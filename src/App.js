@@ -118,7 +118,7 @@ const [showNextForm, setShowNextForm] = useState(false);
 
 
   return (
- <div className="font-kanit mx-auto bg-white px-4 sm:px-6 lg:px-8 py-4 sm:py-6 max-w-[1600px]">
+ <div className="font-kanit mx-auto bg-white px-4 sm:px-6 lg:px-10 py-4 sm:py-6 max-w-[1600px]">
   {/* Header */}
     <div className="">
       {/* Mobile Layout: Images on top row, text below */}
