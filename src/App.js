@@ -120,13 +120,29 @@ const [showNextForm, setShowNextForm] = useState(false);
   return (
  <div className="font-kanit mx-auto bg-white px-4 sm:px-6 lg:px-8 py-4 sm:py-6 max-w-[1600px]">
   {/* Header */}
-  <div className="flex flex-col sm:flex-row items-center justify-between mb-6 sm:mb-12 border-b border-gray-300 pb-4 space-y-4 sm:space-y-0">
-      <img src={Hp} className="w-32 sm:w-40 lg:w-[170px] h-auto" />
-      <h1 className="text-lg sm:text-2xl lg:text-[32px] font-bold text-gray-800 text-center flex-1 px-2">
-        การตรวจคัดกรองธาลัสซีเมียในหญิงตั้งครรภ์
-      </h1>
-      <img src={Lru} className="w-[120px] sm:w-[170px] h-auto rounded" />
-  </div>
+    <div className="p-4">
+      {/* Mobile Layout: Images on top row, text below */}
+      <div className="flex flex-col sm:hidden mb-6 border-b border-gray-300 pb-4 space-y-4">
+        {/* Top row with images */}
+        <div className="flex items-center justify-between">
+          <img src={Hp} className="w-32 h-auto" alt="HP Logo" />
+          <img src={Lru} className="w-[120px] h-auto rounded" alt="LRU Mark" />
+        </div>
+        {/* Bottom row with title */}
+        <h1 className="text-lg font-bold text-gray-800 text-center">
+          การตรวจคัดกรองธาลัสซีเมียในหญิงตั้งครรภ์
+        </h1>
+      </div>
+
+      {/* Desktop/Tablet Layout: Original horizontal layout */}
+      <div className="hidden sm:flex flex-row items-center justify-between mb-12 border-b border-gray-300 pb-4">
+        <img src={Hp} className="w-40 lg:w-[170px] h-auto" alt="HP Logo" />
+        <h1 className="text-2xl lg:text-[32px] font-bold text-gray-800 text-center flex-1 px-2">
+          การตรวจคัดกรองธาลัสซีเมียในหญิงตั้งครรภ์
+        </h1>
+        <img src={Lru} className="w-[170px] h-auto rounded" alt="LRU Mark" />
+      </div>
+      </div>
 
  {/* Disease Types */}
       <div className="mb-6 sm:mb-8">
@@ -221,9 +237,9 @@ const [showNextForm, setShowNextForm] = useState(false);
             <div className="mt-6">
               <button 
                 onClick={getStep1Result}
-                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm sm:text-base"
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm sm:text-[20px]"
               >
-                วิเคราะห์ผลเลือดขั้นตอนแรก
+                วิเคราะห์ผลหญิงตั้งครรภ์
               </button>
             </div>
           </div>
@@ -373,9 +389,9 @@ const [showNextForm, setShowNextForm] = useState(false);
             <div className="mt-6">
               <button 
                 onClick={getStep2Result}
-                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm sm:text-base"
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm sm:text-[20px]"
               >
-                วิเคราะห์ผลเลือดขั้นตอนแรก
+                วิเคราะห์ผลสามี
               </button>
             </div>
           </div>
@@ -517,9 +533,9 @@ const [showNextForm, setShowNextForm] = useState(false);
             </div>
             
             {/* การแปลผล Section */}
-            <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 sm:p-6 rounded-2xl border border-purple-200">
+            <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 sm:p-6 rounded-2xl border border-green-200">
               <h3 className="font-bold text-lg sm:text-xl lg:text-2xl mb-3 sm:mb-4 text-gray-800 flex items-center">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-purple-500 rounded-full flex items-center justify-center mr-2 sm:mr-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-green-500 rounded-full flex items-center justify-center mr-2 sm:mr-3">
                   <CheckCircle className="w-4 h-4 sm:w-6 sm:h-6 lg:w-8 lg:h-8 text-white" />
                 </div>
                 การแปลผล
