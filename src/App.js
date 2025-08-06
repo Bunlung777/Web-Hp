@@ -244,7 +244,7 @@ const [showNextForm, setShowNextForm] = useState(false);
                     <p className="font-semibold text-lg text-gray-800 mb-2">แนวคิด:</p>
                     <div className="space-y-1">
                       {step1Result.details.map((detail, index) => (
-                        <p key={index} className={`text-gray-700 pl-4 border-l-[5px] border-green-300 bg-blue-50 p-3 rounded-lg${
+                        <p key={index} className={`text-gray-700 pl-4 border-l-[5px] border-green-300 bg-[#ffffff] p-3 rounded-lg${
                           step1Result.type === 'normal' 
                             ? 'text-gray-700 pl-4 border-l-[5px] border-green-300 bg-[#ffffff] p-3 rounded-lg' 
                             : 'text-gray-700 pl-4 border-l-[5px] border-yellow-300 bg-[#ffffff] p-3 rounded-l'
@@ -256,7 +256,7 @@ const [showNextForm, setShowNextForm] = useState(false);
                   
                   <div>
                     <p className="font-semibold text-lg text-gray-800 mb-2">คำแนะนำ:</p>
-                    <p className={`text-gray-700 pl-4 border-l-[5px] border-green-300 bg-blue-50 p-3 rounded-lg${
+                    <p className={`text-gray-700 pl-4 border-l-[5px] border-green-300 bg-[#ffffff] p-3 rounded-lg${
                           step1Result.type === 'normal' 
                             ? 'text-gray-700 pl-4 border-l-[5px] border-green-300 bg-[#ffffff] p-3 rounded-lg' 
                             : 'text-gray-700 pl-4 border-l-[5px] border-yellow-300 bg-[#ffffff] p-3 rounded-l'
