@@ -229,70 +229,79 @@ const [showNextForm, setShowNextForm] = useState(false);
           </div>
         </div>
 
-    {/* Step 1 Result */}
-   <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 overflow-hidden">
-            <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-6 ">
-              <h2 className="text-2xl font-bold text-white flex items-center">
-                <FileText className="w-6 h-6 mr-3" />
-                ผลการวิเคราะห์หญิงตั้งครรภ์
-              </h2>
-            </div>
-            
-            <div className="p-8">
-              {step1Result ? (
-                <div className={`p-6 rounded-2xl transition-all duration-500 ${
-                  step1Result.type === 'normal' 
-                    ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200' 
-                    : 'bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-200'
-                }`}>
-                  <div className="flex items-center mb-4">
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center mr-4 ${
-                      step1Result.type === 'normal' ? 'bg-green-500' : 'bg-yellow-500'
-                    }`}>
-                      {step1Result.type === 'normal' ? 
-                        <CheckCircle className="w-6 h-6 text-white" /> : 
-                        <AlertCircle className="w-6 h-6 text-white" />
-                      }
-                    </div>
-                    <h3 className="font-bold text-xl text-gray-800">{step1Result.title}</h3>
+        {/* Step 1 Result */}
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 overflow-hidden">
+          <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-4 sm:p-6">
+            <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white flex items-center">
+              <FileText className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
+              ผลการวิเคราะห์หญิงตั้งครรภ์
+            </h2>
+          </div>
+          
+          <div className="p-4 sm:p-6 lg:p-8">
+            {step1Result ? (
+              <div className={`p-4 sm:p-6 rounded-xl sm:rounded-2xl transition-all duration-500 ${
+                step1Result.type === 'normal' 
+                  ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200' 
+                  : 'bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-200'
+              }`}>
+                {/* Result Header */}
+                <div className="flex items-start sm:items-center mb-4 gap-3 sm:gap-4">
+                  <div className={`w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
+                    step1Result.type === 'normal' ? 'bg-green-500' : 'bg-yellow-500'
+                  }`}>
+                    {step1Result.type === 'normal' ? 
+                      <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" /> : 
+                      <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
+                    }
                   </div>
-                  
-                  <div className="mb-4">
-                    <p className="font-semibold text-lg text-gray-800 mb-2">แนวคิด:</p>
-                    <div className="space-y-1">
-                      {step1Result.details.map((detail, index) => (
-                        <p key={index} className={`text-gray-700 pl-4 border-l-[5px] border-green-300 bg-blue-50 p-3 rounded-lg${
-                          step1Result.type === 'normal' 
-                            ? 'text-gray-700 pl-4 border-l-[5px] border-green-300 bg-[#ffffff] p-3 rounded-lg' 
-                            : 'text-gray-700 pl-4 border-l-[5px] border-yellow-300 bg-[#ffffff] p-3 rounded-l'
-                        }`}>{detail}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <p className="font-semibold text-lg text-gray-800 mb-2">คำแนะนำ:</p>
-                    <p className={`text-gray-700 pl-4 border-l-[5px] border-green-300 bg-blue-50 p-3 rounded-lg${
-                          step1Result.type === 'normal' 
-                            ? 'text-gray-700 pl-4 border-l-[5px] border-green-300 bg-[#ffffff] p-3 rounded-lg' 
-                            : 'text-gray-700 pl-4 border-l-[5px] border-yellow-300 bg-[#ffffff] p-3 rounded-l'
-                        }`}>
-                          {step1Result.advice}
-                      </p>
+                  <h3 className="font-bold text-base sm:text-lg lg:text-xl text-gray-800 leading-tight">
+                    {step1Result.title}
+                  </h3>
+                </div>
+                
+                {/* Details Section */}
+                <div className="mb-4">
+                  <p className="font-semibold text-base sm:text-lg text-gray-800 mb-2">แนวคิด:</p>
+                  <div className="space-y-2">
+                    {step1Result.details.map((detail, index) => (
+                      <div key={index} className={`text-sm sm:text-base text-gray-700 pl-3 sm:pl-4 border-l-4 p-2 sm:p-3 rounded-lg ${
+                        step1Result.type === 'normal' 
+                          ? 'border-green-300 bg-white' 
+                          : 'border-yellow-300 bg-white'
+                      }`}>
+                        {detail}
+                      </div>
+                    ))}
                   </div>
                 </div>
-              ) : (
-                <div className="text-center text-gray-500 py-16">
-                  <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Activity className="w-8 h-8 text-gray-400" />
+                
+                {/* Advice Section */}
+                <div>
+                  <p className="font-semibold text-base sm:text-lg text-gray-800 mb-2">คำแนะนำ:</p>
+                  <div className={`text-sm sm:text-base text-gray-700 pl-3 sm:pl-4 border-l-4 p-2 sm:p-3 rounded-lg ${
+                    step1Result.type === 'normal' 
+                      ? 'border-green-300 bg-white' 
+                      : 'border-yellow-300 bg-white'
+                  }`}>
+                    {step1Result.advice}
                   </div>
-                  <p className="text-lg">กรุณาใส่ค่าผลเลือดเพื่อดูผลการวิเคราะห์</p>
                 </div>
-              )}
-            </div>
+              </div>
+            ) : (
+              <div className="text-center text-gray-500 py-8 sm:py-12 lg:py-16">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Activity className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400" />
+                </div>
+                <p className="text-sm sm:text-base lg:text-lg px-4">
+                  กรุณาใส่ค่าผลเลือดเพื่อดูผลการวิเคราะห์
+                </p>
+              </div>
+            )}
           </div>
         </div>
+      </div>
+    </div>
 
   {/* Step 2 */}
   {showNextForm && (
