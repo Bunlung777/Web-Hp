@@ -3,6 +3,7 @@ import { CheckCircle, AlertCircle , FileText , Activity} from 'lucide-react';
 import Lru from './Img/colormag-logolru-11.png';
 import Hp from './Img/loeih-logo_.png';
 import Dr from './Img/image 1.png';
+import { useNavigate } from 'react-router-dom';
 const ThalassemiaScreening = () => {
   const [step1MCV, setStep1MCV] = useState('');
   const [step1MCH, setStep1MCH] = useState('');
@@ -12,7 +13,8 @@ const ThalassemiaScreening = () => {
   const [step2DCIP, setStep2DCIP] = useState('เลือกผล DCIP');
   const [step1Result, setStep1Result] = useState(null); 
   const [step2Result, setStep2Result] = useState(null); 
-const [showNextForm, setShowNextForm] = useState(false);
+  const [showNextForm, setShowNextForm] = useState(false);
+  const navigate = useNavigate();
   const getStep1Result = () => {
     const mcv = parseFloat(step1MCV);
     const mch = parseFloat(step1MCH);
@@ -173,7 +175,7 @@ const [showNextForm, setShowNextForm] = useState(false);
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-12">
         {/* Step 1 Form */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 overflow-hidden">
-          <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-4 sm:p-6">
+          <div className="bg-gradient-to-r from-green-500 to-cyan-600 p-4 sm:p-6">
             <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white flex items-center">
               <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white/20 rounded-full flex items-center justify-center mr-2 sm:mr-3">
                 <span className="text-white font-bold text-sm sm:text-2xl">1</span>
@@ -247,7 +249,7 @@ const [showNextForm, setShowNextForm] = useState(false);
 
         {/* Step 1 Result */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 overflow-hidden">
-          <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-4 sm:p-6">
+          <div className="bg-gradient-to-r from-emerald-500 to-cyan-600 p-4 sm:p-6">
             <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white flex items-center">
               <FileText className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
               ผลการวิเคราะห์หญิงตั้งครรภ์
@@ -325,7 +327,7 @@ const [showNextForm, setShowNextForm] = useState(false);
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-12">
         {/* Step 1 Form */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 overflow-hidden">
-          <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-4 sm:p-6">
+          <div className="bg-gradient-to-r from-green-500 to-cyan-600 p-4 sm:p-6">
             <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white flex items-center">
               <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white/20 rounded-full flex items-center justify-center mr-2 sm:mr-3">
                 <span className="text-white font-bold text-sm sm:text-2xl">2</span>
@@ -399,7 +401,7 @@ const [showNextForm, setShowNextForm] = useState(false);
 
         {/* Step 2 Result */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 overflow-hidden">
-          <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-4 sm:p-6">
+          <div className="bg-gradient-to-r from-emerald-500 to-cyan-600 p-4 sm:p-6">
             <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white flex items-center">
               <FileText className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
               ผลการวิเคราะห์สุดท้าย
@@ -471,7 +473,19 @@ const [showNextForm, setShowNextForm] = useState(false);
       </div>
     </div>
   )}
-
+    {/* Next Button */}
+{step2Result ? (
+  <div>
+    <div className="text-center mb-12">
+      <button
+        onClick={() => navigate('/Blood')}
+        className="w-[300px] bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 px-8 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+      >
+        ขั้นตอนต่อไป
+      </button>
+    </div>
+  </div>
+) : null}
   {/* Reset Button */}
   <div className="text-center mb-12">
     <button
