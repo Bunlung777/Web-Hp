@@ -1,20 +1,41 @@
-import React, { useState } from 'react';
-import { CheckCircle, AlertCircle , FileText , Activity} from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { CheckCircle, AlertCircle , FileText , Activity,X} from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Lru from './Img/colormag-logolru-11.png';
 import Hp from './Img/loeih-logo_.png';
 import Dr from './Img/image 1.png';
-import { useNavigate } from 'react-router-dom';
 const ThalassemiaScreening = () => {
   const [step1MCV, setStep1MCV] = useState('');
   const [step1MCH, setStep1MCH] = useState('');
-  const [step1DCIP, setStep1DCIP] = useState('เลือกผล DCIP');
+  const [step1DCIP, setStep1DCIP] = useState('');
   const [step2MCV, setStep2MCV] = useState('');
   const [step2MCH, setStep2MCH] = useState('');
-  const [step2DCIP, setStep2DCIP] = useState('เลือกผล DCIP');
+  const [step2DCIP, setStep2DCIP] = useState('');
   const [step1Result, setStep1Result] = useState(null); 
   const [step2Result, setStep2Result] = useState(null); 
   const [showNextForm, setShowNextForm] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
+  
+  const alertTimer = useRef(null);
+  const [alert, setAlert] = useState({ show: false, message: '', type: 'success' }); // 'success' | 'error'
+  const showAlert = (message, type = 'success', timeout = 500) => {
+    setAlert({ show: true, message, type });
+      if (alertTimer.current) clearTimeout(alertTimer.current);
+      if (timeout) {
+      alertTimer.current = setTimeout(() => setAlert(a => ({ ...a, show: false })), timeout);
+      }
+    };
+ useEffect(() => {
+    const toast = location.state?.toast;
+    if (toast?.message) {
+       showAlert(toast.message, toast.type || 'success', toast.timeout ?? 2000);
+      // ล้าง state ออกจาก history กันยิงซ้ำเวลา refresh/back
+      navigate('.', { replace: true, state: {} });
+    }
+    return () => { if (alertTimer.current) clearTimeout(alertTimer.current); };
+  }, [location.state, navigate]);
+
   const getStep1Result = () => {
     const mcv = parseFloat(step1MCV);
     const mch = parseFloat(step1MCH);
@@ -24,9 +45,9 @@ const ThalassemiaScreening = () => {
         type: 'normal',
         title: 'ปกติ - ไม่เสี่ยงต่อราลัสซีเมีย',
         details: [
-          'ไม่เป็นธาลัสซีเมียรุนแรง'
+          'ไม่เป็นธาลัสซีเมีย หรือ ไม่เป็นธาลัสซีเมียชนิดรุนแรง '
         ],
-        advice: 'ไม่ต้องตรวจเพิ่ม ไม่ต้องตรวจสามี'
+        advice: 'ไม่จำเป็นต้องตรวจเพิ่มเติม และไม่มีความจำเป็นต้องทราบผลตรวจคัดกรองธาลัสซีเมียของสามี'
       });
       setShowNextForm(false);
     } 
@@ -35,7 +56,9 @@ const ThalassemiaScreening = () => {
         type: 'unnormal',
         title: 'มีความเสี่ยงต่อราลัสซีเมีย',
         details: [
-          'อาจมี α หรือ β-thalassemia',
+          '- อาจมี α thalassemia และหรือ β -thalassemia โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2',
+          '- ส่วน β –thalassemia มีโอกาสเป็นได้ทั้ง  β0 -thalassemia และ β+ -thalassemia',
+          '- ไม่มี Hb E'
         ],
         advice: 'ตรวจเลือดสามีเพื่อประเมินความเสี่ยงทารก'
       }) 
@@ -46,7 +69,8 @@ const ThalassemiaScreening = () => {
               type: 'unnormal',
               title: 'ปกติ - ไม่เสี่ยงต่อราลัสซีเมีย',
               details: [
-                'ไม่มี α หรือ β-thalassemia แต่มี Hb E',
+                '- ไม่มี α thalassemia และหรือ β -thalassemia',
+                '- มี Hb E'
               ],
               advice: 'ตรวจเลือดสามีเพื่อประเมินความเสี่ยงทารก'
             })
@@ -57,7 +81,9 @@ const ThalassemiaScreening = () => {
               type: 'unnormal',
               title: 'มีความเสี่ยงต่อราลัสซีเมีย',
               details: [
-                'อาจมี α หรือ β-thalassemia และ มี Hb E',
+          '- อาจมี α thalassemia และหรือ β -thalassemia โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2',
+          '- ส่วน β –thalassemia มีโอกาสเป็นได้ทั้ง  β0 -thalassemia และ β+ -thalassemia',
+          '- มี Hb E'
               ],
               advice: 'ตรวจเลือดสามีเพื่อประเมินความเสี่ยงทารก'
             })
@@ -78,9 +104,9 @@ const ThalassemiaScreening = () => {
         type: 'normal',
         title: 'ปกติ - ไม่เสี่ยงต่อราลัสซีเมีย',
         details: [
-          'ไม่เป็นธาลัสซีเมียรุนแรง'
+          '- สามีไม่เป็นธาลัสซีเมีย หรือ ไม่เป็นธาลัสซีเมียชนิดรุนแรง ','- ทารกในครรภ์ไม่มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
         ],
-        advice: 'ไม่ต้องตรวจเพิ่ม'
+        advice: 'ไม่มีความจำเป็นต้องตรวจเพิ่มเติม'
       });
     } 
     else if ((mcv < 80 || mch < 27) && dcip === "negative"){
@@ -88,9 +114,10 @@ const ThalassemiaScreening = () => {
         type: 'unnormal',
         title: 'มีความเสี่ยงต่อราลัสซีเมีย',
         details: [
-          'อาจมี α หรือ β-thalassemia',
+          '- ผลเลือดของสามีอาจมี α thalassemia และหรือ β -thalassemia  โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2 ',
+          '- ส่วน β -thalassemiaมีโอกาสเป็นได้ทั้ง  β0 -thalassemia และ β+ -thalassemia','- สามีไม่มี Hb E','- ทารกในครรภ์มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
         ],
-        advice: 'ส่งตรวจ Hb typing ทั้งคู่'
+        advice: 'ส่งตรวจ Hb typing เพิ่มเติมทั้งหญิงตั้งครรภ์และสามีหญิงตั้งครรภ์'
       }) 
     }
     else if (mcv >= 80 && mch >= 27 && dcip === "positive") {
@@ -98,9 +125,9 @@ const ThalassemiaScreening = () => {
               type: 'unnormal',
               title: 'ปกติ - ไม่เสี่ยงต่อราลัสซีเมีย',
               details: [
-                'ไม่มี α หรือ β-thalassemia แต่มี Hb E',
+                '- สามีไม่มี α thalassemia และ β -thalassemia แต่มี Hb E','- ทารกในครรภ์มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
               ],
-              advice: 'ส่งตรวจ Hb typing ทั้งคู่'
+              advice: 'ส่งตรวจ Hb typing เพิ่มเติมทั้งหญิงตั้งครรภ์และสามีหญิงตั้งครรภ์'
             })
     }
     else if ((mcv < 80 || mch < 27) && dcip === "positive") {
@@ -108,9 +135,10 @@ const ThalassemiaScreening = () => {
               type: 'unnormal',
               title: 'มีความเสี่ยงต่อราลัสซีเมีย',
               details: [
-                'อาจมี α หรือ β-thalassemia และมี Hb E',
+                '- ผลเลือดของสามีอาจมี α thalassemia และหรือ β -thalassemia  โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2','- ส่วน β -thalassemiaมีโอกาสเป็นได้ทั้ง  β0 -thalassemia และ β+ -thalassemia',
+                '- สามีมี Hb E','- ทารกในครรภ์มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
               ],
-              advice: 'ส่งตรวจ Hb typing ทั้งคู่'
+              advice: 'ส่งตรวจ Hb typing เพิ่มเติมทั้งหญิงตั้งครรภ์และสามีหญิงตั้งครรภ์'
             })  
     }
     else {
@@ -118,9 +146,38 @@ const ThalassemiaScreening = () => {
     }
   };
 
-
+const isStep1Disabled = step1MCV === '' || step1MCH === '' || !step1DCIP;
+const disabledBtn = 'bg-gradient-to-r from-gray-300 to-gray-300 text-white shadow-none cursor-not-allowed pointer-events-none';
+const activeBtn   = 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5';
+const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
   return (
  <div className="font-kanit mx-auto bg-white px-4 sm:px-6 lg:px-10 py-4 sm:py-6 max-w-[1600px]">
+  <div className="fixed top-0 inset-x-0 z-50 flex justify-center pointer-events-none">
+     <div
+       className={[
+         "mt-3 w-full max-w-xl rounded-xl border p-3 shadow-lg transition-all duration-300 pointer-events-auto",
+         alert.show ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4",
+         alert.type === "success"
+           ? "bg-emerald-50 border-emerald-200 text-emerald-800"
+           : "bg-red-50 border-red-200 text-red-800",
+       ].join(" ")}
+       role="status"
+       aria-live="polite"
+     >
+       <div className="flex items-center gap-2">
+         <CheckCircle className="w-5 h-5" />
+         <span className="text-sm">{alert.message}</span>
+         <button
+           type="button"
+           onClick={() => setAlert(a => ({ ...a, show: false }))}
+           className="ml-auto rounded p-1 hover:bg-black/5"
+           aria-label="ปิดแจ้งเตือน"
+         >
+           <X className="w-4 h-4" />
+         </button>
+       </div>
+     </div>
+    </div>
   {/* Header */}
     <div className="">
       {/* Mobile Layout: Images on top row, text below */}
@@ -150,23 +207,35 @@ const ThalassemiaScreening = () => {
       <div className="mb-6 sm:mb-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="p-3 sm:p-4 rounded-lg col-span-1 sm:col-span-2 lg:col-span-1">
-            <h3 className="font-semibold text-lg sm:text-xl lg:text-[25px] mb-2">วัตถุประสงค์</h3>
+            <h3 className="font-semibold text-lg sm:text-xl lg:text-[25px] mb-2">ระดับที่ 1 </h3>
             <p className="text-gray-600 text-sm sm:text-base lg:text-[15px]">
               เพื่อค้นหาโรคเลือดจางธาลัสซีเมียขณะตั้งครรภ์
             </p>
           </div>
-          <div className="bg-gray-100 p-3 sm:p-4 rounded-lg">
-            <h3 className="font-semibold text-base sm:text-lg lg:text-[20px] mb-1">1. Homozygous α1 thalassemia</h3>
-            <p className="text-xs sm:text-sm text-gray-600">Hb Bart's hydrops fetalis</p>
+    <div className="text-center mb-12">
+      <button
+        onClick={() => navigate('/ThalassemiaScreening')}
+        className="w-[300px] bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 px-8 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+      >
+        ระดับที่ 1 
+      </button>
           </div>
-          <div className="bg-gray-100 p-3 sm:p-4 rounded-lg">
+    <div className="text-center mb-12">
+      <button
+        onClick={() => navigate('/Blood')}
+        className="w-[300px] bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 px-8 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+      >
+          ระดับที่ 2
+      </button>
+    </div>
+          {/* <div className="bg-gray-100 p-3 sm:p-4 rounded-lg">
             <h3 className="font-semibold text-base sm:text-lg lg:text-[20px] mb-1">2. Homozygous β-thalassemia</h3>
             <p className="text-xs sm:text-sm text-gray-600">โรคเลือดจางชนิดรุนแรง</p>
           </div>
           <div className="bg-gray-100 p-3 sm:p-4 rounded-lg">
             <h3 className="font-semibold text-base sm:text-lg lg:text-[20px] mb-1">3. β0-thalassemia/Hb E</h3>
             <p className="text-xs sm:text-sm text-gray-600">โรคเลือดจางชนิดรุนแรง</p>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -238,9 +307,11 @@ const ThalassemiaScreening = () => {
             {/* Submit Button */}
             <div className="mt-6">
               <button 
+                type="button"
                 onClick={getStep1Result}
-                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm sm:text-[20px]"
-              >
+                disabled={isStep1Disabled}
+                aria-disabled={isStep1Disabled}
+                 className={`w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl transition-all duration-300 font-semibold text-sm sm:text-[20px] ${isStep1Disabled ? disabledBtn : activeBtn}`}>
                 วิเคราะห์ผลหญิงตั้งครรภ์
               </button>
             </div>
@@ -280,7 +351,7 @@ const ThalassemiaScreening = () => {
                 
                 {/* Details Section */}
                 <div className="mb-4">
-                  <p className="font-semibold text-base sm:text-lg text-gray-800 mb-2">แนวคิด:</p>
+                  <p className="font-semibold text-base sm:text-lg text-gray-800 mb-2">แปลผล:</p>
                   <div className="space-y-2">
                     {step1Result.details.map((detail, index) => (
                       <div key={index} className={`text-sm sm:text-base text-gray-700 pl-3 sm:pl-4 border-l-4 p-2 sm:p-3 rounded-lg ${
@@ -391,8 +462,9 @@ const ThalassemiaScreening = () => {
             <div className="mt-6">
               <button 
                 onClick={getStep2Result}
-                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm sm:text-[20px]"
-              >
+                aria-disabled={isStep2Disabled}
+                disabled={isStep2Disabled}
+                className={`w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl transition-all duration-300 font-semibold text-sm sm:text-[20px] ${isStep2Disabled ? disabledBtn : activeBtn}`} >
                 วิเคราะห์ผลสามี
               </button>
             </div>
@@ -432,7 +504,7 @@ const ThalassemiaScreening = () => {
                 
                 {/* Details Section */}
                 <div className="mb-4">
-                  <p className="font-semibold text-base sm:text-lg text-gray-800 mb-2">แนวคิด:</p>
+                  <p className="font-semibold text-base sm:text-lg text-gray-800 mb-2">แปลผล:</p>
                   <div className="space-y-2">
                     {step2Result.details.map((detail, index) => (
                       <div key={index} className={`text-sm sm:text-base text-gray-700 pl-3 sm:pl-4 border-l-4 p-2 sm:p-3 rounded-lg ${

@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import ThalassemiaScreening from './App';
 import Blood from './Blood';
+import Login from './Login';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
@@ -11,8 +12,10 @@ import { createRoot } from 'react-dom/client';
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<ThalassemiaScreening />} />
+      <Route path="/" element={<Login />} />
       <Route path="/Blood" element={<Blood />} />
+      <Route path="/Login" element={<Login />} />
+      <Route path="/ThalassemiaScreening" element={<ThalassemiaScreening />} />
     </Routes>
   </BrowserRouter>
 );
