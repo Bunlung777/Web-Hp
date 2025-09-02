@@ -289,7 +289,7 @@ const handleGuestLogin = () => {
         </div>
 
         {/* small footer */}
-        <div className="py-6 text-center text-xs text-gray-500">© {new Date().getFullYear()} — All rights reserved.</div>
+        // <div className="py-6 text-center text-xs text-gray-500">© {new Date().getFullYear()} — All rights reserved.</div>
       </div>
     </div>
   );
