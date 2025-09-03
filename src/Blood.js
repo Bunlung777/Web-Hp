@@ -277,6 +277,14 @@ const Blood = () => {
           ระดับที่ 2
       </button>
     </div>
+    <div className="text-center mb-12">
+      <button
+        onClick={() => navigate('/Admin')}
+        className="w-[300px] bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 px-8 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+      >
+          Admin
+      </button>
+    </div>
         </div>
       </div>
 
