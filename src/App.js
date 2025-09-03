@@ -228,6 +228,14 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
           ระดับที่ 2
       </button>
     </div>
+    <div className="text-center mb-12">
+      <button
+        onClick={() => navigate('/Admin')}
+        className="w-[300px] bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 px-8 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+      >
+          Admin
+      </button>
+    </div>
           {/* <div className="bg-gray-100 p-3 sm:p-4 rounded-lg">
             <h3 className="font-semibold text-base sm:text-lg lg:text-[20px] mb-1">2. Homozygous β-thalassemia</h3>
             <p className="text-xs sm:text-sm text-gray-600">โรคเลือดจางชนิดรุนแรง</p>
@@ -243,80 +251,111 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
 <div className="p-4 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-12">
         {/* Step 1 Form */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 overflow-hidden">
-          <div className="bg-gradient-to-r from-green-500 to-cyan-600 p-4 sm:p-6">
-            <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white flex items-center">
-              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white/20 rounded-full flex items-center justify-center mr-2 sm:mr-3">
-                <span className="text-white font-bold text-sm sm:text-2xl">1</span>
+ <div className="bg-white/90 rounded-3xl border border-white/40 shadow-xl overflow-hidden">
+            <div className="p-4 sm:p-6 bg-gradient-to-r from-emerald-500 to-cyan-600">
+              <div className="flex items-center justify-between">
+                <h2 className="text-white font-bold text-xl sm:text-2xl flex items-center gap-3">
+                  <span className="inline-flex w-8 h-8 items-center justify-center rounded-full bg-white/20 font-bold">
+                    1
+                  </span>
+                  ผลเลือดหญิงตั้งครรภ์
+                </h2>
+                {/* Progress small */}
+                <div className="hidden sm:flex items-center gap-1 text-white/80 text-xs">
+                  <div className="w-16 h-1 bg-white/40 rounded-full">
+                    <div
+                      className={`h-1 rounded-full ${
+                        step1Result ? "w-16 bg-white" : "w-8 bg-white"
+                      }`}
+                    />
+                  </div>
+                  {step1Result ? "กรอกครบ" : "กำลังกรอก"}
+                </div>
               </div>
-              ผลเลือดหญิงตั้งครรภ์
-            </h2>
+            </div>
+
+            <div className="p-5 sm:p-6">
+              <div className="flex flex-col lg:flex-row gap-6">
+                <div className="hidden lg:block shrink-0">
+                  <img src={Dr} className="w-28 h-28 object-contain" alt="doctor" />
+                </div>
+
+                <div className="flex-1 space-y-4">
+                  {/* MCV */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">MCV</label>
+                    <div className="relative">
+                      <input
+                        type="number"
+                        min={0}
+                        step="0.1"
+                        value={step1MCV}
+                        onChange={(e) => setStep1MCV(e.target.value)}
+                        placeholder="กรอกค่า MCV"
+                        className="w-full h-12 rounded-xl border border-gray-300 bg-white/80 px-4 pr-16 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">fL</span>
+                    </div>
+                  </div>
+
+                  {/* MCH */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">MCH</label>
+                    <div className="relative">
+                      <input
+                        type="number"
+                        min={0}
+                        step="0.1"
+                        value={step1MCH}
+                        onChange={(e) => setStep1MCH(e.target.value)}
+                        placeholder="กรอกค่า MCH"
+                        className="w-full h-12 rounded-xl border border-gray-300 bg-white/80 px-4 pr-16 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">pg</span>
+                    </div>
+                  </div>
+
+                  {/* DCIP segmented */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">DCIP Test Result</label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setStep1DCIP("negative")}
+                        className={`h-11 rounded-xl border transition flex items-center justify-center gap-2 ${
+                          step1DCIP === "negative"
+                            ? "border-emerald-500 bg-emerald-50 text-emerald-700"
+                            : "border-gray-300 hover:border-emerald-300"
+                        }`}
+                      >
+                        <CheckCircle className="w-4 h-4" /> Negative
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setStep1DCIP("positive")}
+                        className={`h-11 rounded-xl border transition flex items-center justify-center gap-2 ${
+                          step1DCIP === "positive"
+                            ? "border-amber-500 bg-amber-50 text-amber-700"
+                            : "border-gray-300 hover:border-amber-300"
+                        }`}
+                      >
+                        <AlertCircle className="w-4 h-4" /> Positive
+                      </button>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={getStep1Result}
+                    disabled={isStep1Disabled}
+                    className={`w-full h-12 rounded-2xl font-semibold transition ${isStep1Disabled ? disabledBtn : activeBtn}`}
+                  >
+                    วิเคราะห์ผลหญิงตั้งครรภ์
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-          
-          {/* Form Content */}
-          <div className="p-4 sm:p-6">
-            {/* Doctor Image and Form Fields */}
-            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 items-center lg:items-start">
-              {/* Doctor Image - Hidden on small screens, centered on large screens */}
-              <div className="hidden lg:flex w-24 h-24 xl:w-32 xl:h-32">
-                <div className="w-full h-full">
-                  <img src={Dr} className="w-32 h-32 object-contain"></img>
-                </div>
-              </div>
-              
-              {/* Form Fields */}
-              <div className="flex-1 w-full max-w-md lg:max-w-none space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">MCV (fL)</label>
-                  <input
-                    type="number"
-                    value={step1MCV}
-                    onChange={(e) => setStep1MCV(e.target.value)}
-                    placeholder="ใส่ค่า MCV"
-                    className="w-full p-2 sm:p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">MCH (pg)</label>
-                  <input
-                    type="number"
-                    value={step1MCH}
-                    onChange={(e) => setStep1MCH(e.target.value)}
-                    placeholder="ใส่ค่า MCH"
-                    className="w-full p-2 sm:p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
-                  />
-                </div>
-              </div>
-            </div>
-            
-            {/* DCIP Selection */}
-            <div className="mt-4 sm:mt-6">
-              <label className="block text-sm font-medium text-gray-700 mb-1">DCIP Test Result</label>
-              <select
-                value={step1DCIP}
-                onChange={(e) => setStep1DCIP(e.target.value)}
-                className="w-full p-2 sm:p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
-              >
-                <option>เลือกผล DCIP</option>
-                <option value="positive">Positive</option>
-                <option value="negative">Negative</option>
-              </select>
-            </div>
-            
-            {/* Submit Button */}
-            <div className="mt-6">
-              <button 
-                type="button"
-                onClick={getStep1Result}
-                disabled={isStep1Disabled}
-                aria-disabled={isStep1Disabled}
-                 className={`w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl transition-all duration-300 font-semibold text-sm sm:text-[20px] ${isStep1Disabled ? disabledBtn : activeBtn}`}>
-                วิเคราะห์ผลหญิงตั้งครรภ์
-              </button>
-            </div>
-          </div>
-        </div>
 
         {/* Step 1 Result */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 overflow-hidden">
@@ -396,80 +435,112 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
   {showNextForm && (
     <div className="p-4 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-12">
-        {/* Step 1 Form */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 overflow-hidden">
-          <div className="bg-gradient-to-r from-green-500 to-cyan-600 p-4 sm:p-6">
-            <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white flex items-center">
-              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white/20 rounded-full flex items-center justify-center mr-2 sm:mr-3">
-                <span className="text-white font-bold text-sm sm:text-2xl">2</span>
+        {/* Step 2 Form */}
+ <div className="bg-white/90 rounded-3xl border border-white/40 shadow-xl overflow-hidden">
+            <div className="p-4 sm:p-6 bg-gradient-to-r from-emerald-500 to-cyan-600">
+              <div className="flex items-center justify-between">
+                <h2 className="text-white font-bold text-xl sm:text-2xl flex items-center gap-3">
+                  <span className="inline-flex w-8 h-8 items-center justify-center rounded-full bg-white/20 font-bold">
+                    1
+                  </span>
+                  ผลเลือดหญิงตั้งครรภ์
+                </h2>
+                {/* Progress small */}
+                <div className="hidden sm:flex items-center gap-1 text-white/80 text-xs">
+                  <div className="w-16 h-1 bg-white/40 rounded-full">
+                    <div
+                      className={`h-1 rounded-full ${
+                        step2Result ? "w-16 bg-white" : "w-8 bg-white"
+                      }`}
+                    />
+                  </div>
+                  {step2Result ? "กรอกครบ" : "กำลังกรอก"}
+                </div>
               </div>
-               ผลเลือดสามี
-            </h2>
+            </div>
+
+            <div className="p-5 sm:p-6">
+              <div className="flex flex-col lg:flex-row gap-6">
+                <div className="hidden lg:block shrink-0">
+                  <img src={Dr} className="w-28 h-28 object-contain" alt="doctor" />
+                </div>
+
+                <div className="flex-1 space-y-4">
+                  {/* MCV */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">MCV</label>
+                    <div className="relative">
+                      <input
+                        type="number"
+                        min={0}
+                        step="0.1"
+                        value={step2MCV}
+                        onChange={(e) => setStep2MCV(e.target.value)}
+                        placeholder="กรอกค่า MCV"
+                        className="w-full h-12 rounded-xl border border-gray-300 bg-white/80 px-4 pr-16 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">fL</span>
+                    </div>
+                  </div>
+
+                  {/* MCH */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">MCH</label>
+                    <div className="relative">
+                      <input
+                        type="number"
+                        min={0}
+                        step="0.1"
+                        value={step2MCH}
+                        onChange={(e) => setStep2MCH(e.target.value)}
+                        placeholder="กรอกค่า MCH"
+                        className="w-full h-12 rounded-xl border border-gray-300 bg-white/80 px-4 pr-16 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">pg</span>
+                    </div>
+                  </div>
+
+                  {/* DCIP segmented */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">DCIP Test Result</label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setStep2DCIP("negative")}
+                        className={`h-11 rounded-xl border transition flex items-center justify-center gap-2 ${
+                          step2DCIP === "negative"
+                            ? "border-emerald-500 bg-emerald-50 text-emerald-700"
+                            : "border-gray-300 hover:border-emerald-300"
+                        }`}
+                      >
+                        <CheckCircle className="w-4 h-4" /> Negative
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setStep2DCIP("positive")}
+                        className={`h-11 rounded-xl border transition flex items-center justify-center gap-2 ${
+                          step2DCIP === "positive"
+                            ? "border-amber-500 bg-amber-50 text-amber-700"
+                            : "border-gray-300 hover:border-amber-300"
+                        }`}
+                      >
+                        <AlertCircle className="w-4 h-4" /> Positive
+                      </button>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={getStep2Result}
+                    disabled={isStep2Disabled}
+                    className={`w-full h-12 rounded-2xl font-semibold transition ${isStep2Disabled ? disabledBtn : activeBtn}`}
+                  >
+                    วิเคราะห์ผลหญิงตั้งครรภ์
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-          
-          {/* Form Content */}
-          <div className="p-4 sm:p-6">
-            {/* Doctor Image and Form Fields */}
-            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 items-center lg:items-start">
-              {/* Doctor Image - Hidden on small screens, centered on large screens */}
-              <div className="hidden lg:flex w-24 h-24 xl:w-32 xl:h-32">
-                <div className="w-full h-full">
-                  <img src={Dr} className="w-32 h-32 object-contain"></img>
-                </div>
-              </div>
-              
-              {/* Form Fields */}
-              <div className="flex-1 w-full max-w-md lg:max-w-none space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">MCV (fL)</label>
-                  <input
-                    type="number"
-                    value={step2MCV}
-                    onChange={(e) => setStep2MCV(e.target.value)}
-                    placeholder="ใส่ค่า MCV"
-                    className="w-full p-2 sm:p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">MCH (pg)</label>
-                  <input
-                    type="number"
-                    value={step2MCH}
-                    onChange={(e) => setStep2MCH(e.target.value)}
-                    placeholder="ใส่ค่า MCH"
-                    className="w-full p-2 sm:p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
-                  />
-                </div>
-              </div>
-            </div>
-            
-            {/* DCIP Selection */}
-            <div className="mt-4 sm:mt-6">
-              <label className="block text-sm font-medium text-gray-700 mb-1">DCIP Test Result</label>
-              <select
-                value={step2DCIP}
-                onChange={(e) => setStep2DCIP(e.target.value)}
-                className="w-full p-2 sm:p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
-              >
-                <option>เลือกผล DCIP</option>
-                <option value="positive">Positive</option>
-                <option value="negative">Negative</option>
-              </select>
-            </div>
-            
-            {/* Submit Button */}
-            <div className="mt-6">
-              <button 
-                onClick={getStep2Result}
-                aria-disabled={isStep2Disabled}
-                disabled={isStep2Disabled}
-                className={`w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl transition-all duration-300 font-semibold text-sm sm:text-[20px] ${isStep2Disabled ? disabledBtn : activeBtn}`} >
-                วิเคราะห์ผลสามี
-              </button>
-            </div>
-          </div>
-        </div>
 
         {/* Step 2 Result */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 overflow-hidden">
