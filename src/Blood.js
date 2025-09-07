@@ -62,7 +62,7 @@ const combinations = {
     details:
       'ทารกในครรภ์ไม่มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง',
     advice:
-      'ส่งพบแพทย์เพื่อให้คำแนะนำทางพันธุศาสตร์ (genetic counseling)\nไม่มีความจำเป็นต้องตรวจเพิ่มเติม',
+      'ไม่มีความจำเป็นต้องตรวจเพิ่มเติม',
   },
   EA_high_EA_high: {
     risk: 'no_risk',
@@ -107,6 +107,30 @@ const combinations = {
     advice:
       'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
   },
+  A2A_low_HbH_Cs: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+  A2A_low_EA_low: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+  A2A_low_A2A_high: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+  A2A_high_A2A_low: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
   A2A_high_A2A_high: {
     risk: 'high_risk',
     details:
@@ -121,6 +145,19 @@ const combinations = {
     advice:
       'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา β⁰-thalassemia',
   },
+  A2A_low_EA_low: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+    A2A_high_EA_low: {
+    risk: 'high_risk',
+    details:
+      "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β0 -thalassemia/Hb E",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติม ระดับ ดีเอ็นเอ (DNA analysis)เพื่อค้นหา β0 -thalassemia or α -thalassemia 1',
+  },
   EA_high_A2A_high: {
     risk: 'high_risk',
     details:
@@ -128,7 +165,64 @@ const combinations = {
     advice:
       'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา β⁰-thalassemia',
   },
+  EA_low_A2A_high: {
+    risk: 'high_risk',
+    details:
+      'ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด β0 -thalassemia/Hb E',
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติม ระดับ ดีเอ็นเอ (DNA analysis)เพื่อค้นหา β0 -thalassemia',
+  },
+  EE_EA_low: {
+    risk: 'high_risk',
+    details:
+      "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติม ระดับ ดีเอ็นเอ (DNA analysis)เพื่อค้นหา α -thalassemia 1',
+  },
+  EF_homozygous_EE: {
+    risk: 'high_risk',
+    details:
+      "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β0 -thalassemia/Hb E",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติม ระดับ ดีเอ็นเอ (DNA analysis)เพื่อค้นหา α -thalassemia 1 β0 -thalassemia',
+  },
+  EF_homozygous_EF_homozygous: {
+    risk: 'high_risk',
+    details:
+      "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β0 -thalassemia/Hb E",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติม ระดับ ดีเอ็นเอ (DNA analysis)เพื่อค้นหา α -thalassemia 1 β0 -thalassemia',
+  },
+  EF_EF_homozygous: {
+    risk: 'high_risk',
+    details:
+      "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β0 -thalassemia/Hb E",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติม ระดับ ดีเอ็นเอ (DNA analysis)เพื่อค้นหา α -thalassemia 1 β0 -thalassemia',
+  },
+  EA_low_A2A_low: {
+    risk: 'high_risk',
+    details:
+      'ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด β⁰-thalassemia/Hb E',
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา β⁰-thalassemia',
+  },
   EE_EE: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+  EE_A2A_high: {
+    risk: 'high_risk',
+    details: [
+        "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด -Hb Bart's hydrops fetalis - β0 -thalassemia/Hb E",
+        "- β0 -thalassemia/Hb E"
+      ],
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติม ระดับ ดีเอ็นเอ (DNA analysis)เพื่อค้นหา β0 -thalassemia orα -thalassemia 1',
+  },
+  EE_A2A_low: {
     risk: 'high_risk',
     details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
     advice:
@@ -157,9 +251,179 @@ const combinations = {
   EF_A2A_high: {
     risk: 'high_risk',
     details:
-      'ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด β⁰-thalassemia/Hb E',
+      'ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด - Hb Barts hydrops fetalis- β0 -thalassemia/Hb E- Homozygous β -thalassemia',
     advice:
-      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา β⁰-thalassemia',
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1, β⁰-thalassemia',
+  },
+  EF_HbH_Cs: {
+    risk: 'high_risk',
+    details:
+      'ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด - Hb Barts hydrops fetalis',
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+  EF_HbH: {
+    risk: 'high_risk',
+    details:
+      'ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด - Hb Barts hydrops fetalis',
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+    EA_high_EE: {
+    risk: 'no_risk',
+    details:
+      'ทารกในครรภ์ไม่มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง',
+    advice:
+      'ส่งพบแพทย์เพื่อให้คำแนะนำทางพันธุศาสตร์ (genetic counseling)\nไม่มีความจำเป็นต้องตรวจเพิ่มเติม',
+  },
+
+  // ===== กลุ่ม "ความเสี่ยงสูง" ตามตารางเอกสาร =====
+  // EA_low + EA_low → Hb Bart’s hydrops fetalis
+  EA_low_EA_low: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+
+  // EA_low + EE → Hb Bart’s
+  EA_low_EE: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+
+  // A2A_low + EE → Hb Bart’s
+  A2A_low_EE: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+
+  // A2A_high + EE → Hb Bart’s และ/หรือ β0-thal/HbE
+  A2A_high_EE: {
+    risk: 'high_risk',
+    details:
+      "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β⁰-thalassemia/Hb E",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา β⁰-thalassemia หรือ α-thalassemia 1',
+  },
+
+  // EF + EE → Hb Bart’s และ β0-thal/HbE
+  EF_EE: {
+    risk: 'high_risk',
+    details:
+      "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β⁰-thalassemia/Hb E",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1, β⁰-thalassemia',
+  },
+
+  // EF + A2A_low → ส่วนใหญ่เสี่ยง Hb Bart’s (ฝั่ง EF ในเอกสารครอบคลุม pairing กว้าง)
+  EF_A2A_low: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+
+  // A2A_low + EF (ถ้ายังไม่มี)
+  A2A_low_EF: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+
+  // ===== กลุ่มที่เกี่ยวกับ HbH / HbH-Cs ตามแผนภาพ (เสี่ยง Hb Bart’s) =====
+  // หมายเหตุ: ทั้ง HbH และ HbH_Cs เมื่อจับคู่กับกลุ่มเสี่ยงส่วนใหญ่ให้ถือว่าเสี่ยง Hb Bart’s และส่งตรวจ DNA α-thal 1
+  HbH_A2A_low: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+  HbH_A2A_high: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+  HbH_EA_low: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+  HbH_EA_high: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+  HbH_EE: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+  HbH_EF: {
+    risk: 'high_risk',
+    details:
+      "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β⁰-thalassemia/Hb E",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1, β⁰-thalassemia',
+  },
+  HbH_HbH_Cs: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+
+  HbH_Cs_A2A_low: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+  HbH_Cs_A2A_high: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+  HbH_Cs_EA_low: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+  HbH_Cs_EA_high: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+  HbH_Cs_EE: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+  HbH_Cs_EF: {
+    risk: 'high_risk',
+    details:
+      "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β⁰-thalassemia/Hb E",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1, β⁰-thalassemia',
+  },
+  HbH_Cs_HbH_Cs: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
   },
 };
 
@@ -370,7 +634,7 @@ const Blood = () => {
                     </select>
                   </div>
                   {husbandHb && (
-                    <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                    <div className="bg-pink-50 p-3 rounded-lg border border-pink-200">
                       <p className="text-sm text-blue-800">
                         <strong>คำอธิบาย:</strong> {screeningRules[husbandHb]?.description}
                       </p>
@@ -413,7 +677,7 @@ const Blood = () => {
                     <p className="text-xs text-pink-600 mt-1 text-[16px]">{result.woman.description}</p>
                   </div>
 
-                  <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                  <div className="bg-pink-50 p-4 rounded-lg border border-pink-200">
                     <h3 className="font-semibold text-blue-800 mb-2 text-[20px]">สามี</h3>
                     <p className="text-sm text-blue-700 text-[16px]">{result.husband.label}</p>
                     <p className="text-xs text-blue-600 mt-1 text-[16px]">{result.husband.description}</p>
@@ -422,7 +686,7 @@ const Blood = () => {
 
                 {/* Risk Assessment */}
                 <div className={`p-6 rounded-xl border-2 ${riskUI.wrap}`}>
-                  <div className="flex items-start gap-4 mb-4">
+                  {/* <div className="flex items-start gap-4 mb-4">
                     <div className={`w-12 h-12 rounded-full flex items-center justify-center ${riskUI.dot}`}>
                       {result.screening.risk === 'no_risk' ? (
                         <CheckCircle className="w-6 h-6 text-white" />
@@ -435,7 +699,7 @@ const Blood = () => {
                         {riskUI.label}
                       </h3>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="space-y-4">
                     <div>

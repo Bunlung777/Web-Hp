@@ -98,7 +98,7 @@ const ThalassemiaScreening = () => {
   const getStep2Result = () => {
     const mcv = parseFloat(step2MCV);
     const mch = parseFloat(step2MCH);
-    const dcip = step1DCIP
+    const dcip = step2DCIP
     if (mcv >= 80 && mch >= 27 && dcip === "negative") {
       setStep2Result({
         type: 'normal',
@@ -123,7 +123,7 @@ const ThalassemiaScreening = () => {
     else if (mcv >= 80 && mch >= 27 && dcip === "positive") {
       setStep2Result({
               type: 'unnormal',
-              title: 'ปกติ - ไม่เสี่ยงต่อราลัสซีเมีย',
+              title: 'มีความเสี่ยงต่อราลัสซีเมีย',
               details: [
                 '- สามีไม่มี α thalassemia และ β -thalassemia แต่มี Hb E','- ทารกในครรภ์มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
               ],
@@ -441,9 +441,9 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
               <div className="flex items-center justify-between">
                 <h2 className="text-white font-bold text-xl sm:text-2xl flex items-center gap-3">
                   <span className="inline-flex w-8 h-8 items-center justify-center rounded-full bg-white/20 font-bold">
-                    1
+                    2
                   </span>
-                  ผลเลือดหญิงตั้งครรภ์
+                  ผลเลือดสามี
                 </h2>
                 {/* Progress small */}
                 <div className="hidden sm:flex items-center gap-1 text-white/80 text-xs">
