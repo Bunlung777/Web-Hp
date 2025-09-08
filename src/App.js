@@ -43,7 +43,7 @@ const ThalassemiaScreening = () => {
     if (mcv >= 80 && mch >= 27 && dcip === "negative") {
       setStep1Result({
         type: 'normal',
-        title: 'ปกติ - ไม่เสี่ยงต่อราลัสซีเมีย',
+        title: 'ปกติ - ไม่เสี่ยงต่อธาลัสซีเมีย',
         details: [
           'ไม่เป็นธาลัสซีเมีย หรือ ไม่เป็นธาลัสซีเมียชนิดรุนแรง '
         ],
@@ -54,38 +54,38 @@ const ThalassemiaScreening = () => {
     else if ((mcv < 80 || mch < 27) && dcip === "negative"){
      setStep1Result({
         type: 'unnormal',
-        title: 'มีความเสี่ยงต่อราลัสซีเมีย',
+        title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
         details: [
           '- อาจมี α thalassemia และหรือ β -thalassemia โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2',
-          '- ส่วน β –thalassemia มีโอกาสเป็นได้ทั้ง  β0 -thalassemia และ β+ -thalassemia',
+          '- ส่วน β –thalassemia มีโอกาสเป็นได้ทั้ง  β⁰ -thalassemia และ β⁺ -thalassemia',
           '- ไม่มี Hb E'
         ],
-        advice: 'ตรวจเลือดสามีเพื่อประเมินความเสี่ยงทารก'
+        advice: 'พิจารณาผลเลือดของสามี'
       }) 
       setShowNextForm(true);
     }
     else if (mcv >= 80 && mch >= 27 && dcip === "positive") {
       setStep1Result({
               type: 'unnormal',
-              title: 'ปกติ - ไม่เสี่ยงต่อราลัสซีเมีย',
+              title: 'ปกติ - ไม่เสี่ยงต่อธาลัสซีเมีย',
               details: [
                 '- ไม่มี α thalassemia และหรือ β -thalassemia',
                 '- มี Hb E'
               ],
-              advice: 'ตรวจเลือดสามีเพื่อประเมินความเสี่ยงทารก'
+              advice: 'พิจารณาผลเลือดของสามี'
             })
       setShowNextForm(true);
     }
     else if ((mcv < 80 || mch < 27) && dcip === "positive") {
       setStep1Result({
               type: 'unnormal',
-              title: 'มีความเสี่ยงต่อราลัสซีเมีย',
+              title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
               details: [
           '- อาจมี α thalassemia และหรือ β -thalassemia โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2',
-          '- ส่วน β –thalassemia มีโอกาสเป็นได้ทั้ง  β0 -thalassemia และ β+ -thalassemia',
+          '- ส่วน β –thalassemia มีโอกาสเป็นได้ทั้ง  β⁰ -thalassemia และ β⁺ -thalassemia',
           '- มี Hb E'
               ],
-              advice: 'ตรวจเลือดสามีเพื่อประเมินความเสี่ยงทารก'
+              advice: 'พิจารณาผลเลือดของสามี'
             })
       setShowNextForm(true);     
     }
@@ -102,7 +102,7 @@ const ThalassemiaScreening = () => {
     if (mcv >= 80 && mch >= 27 && dcip === "negative") {
       setStep2Result({
         type: 'normal',
-        title: 'ปกติ - ไม่เสี่ยงต่อราลัสซีเมีย',
+        title: 'ปกติ - ไม่เสี่ยงต่อธาลัสซีเมีย',
         details: [
           '- สามีไม่เป็นธาลัสซีเมีย หรือ ไม่เป็นธาลัสซีเมียชนิดรุนแรง ','- ทารกในครรภ์ไม่มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
         ],
@@ -112,10 +112,10 @@ const ThalassemiaScreening = () => {
     else if ((mcv < 80 || mch < 27) && dcip === "negative"){
      setStep2Result({
         type: 'unnormal',
-        title: 'มีความเสี่ยงต่อราลัสซีเมีย',
+        title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
         details: [
           '- ผลเลือดของสามีอาจมี α thalassemia และหรือ β -thalassemia  โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2 ',
-          '- ส่วน β -thalassemiaมีโอกาสเป็นได้ทั้ง  β0 -thalassemia และ β+ -thalassemia','- สามีไม่มี Hb E','- ทารกในครรภ์มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
+          '- ส่วน β -thalassemiaมีโอกาสเป็นได้ทั้ง  β⁰ -thalassemia และ β⁺ -thalassemia','- สามีไม่มี Hb E','- ทารกในครรภ์มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
         ],
         advice: 'ส่งตรวจ Hb typing เพิ่มเติมทั้งหญิงตั้งครรภ์และสามีหญิงตั้งครรภ์'
       }) 
@@ -123,7 +123,7 @@ const ThalassemiaScreening = () => {
     else if (mcv >= 80 && mch >= 27 && dcip === "positive") {
       setStep2Result({
               type: 'unnormal',
-              title: 'มีความเสี่ยงต่อราลัสซีเมีย',
+              title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
               details: [
                 '- สามีไม่มี α thalassemia และ β -thalassemia แต่มี Hb E','- ทารกในครรภ์มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
               ],
@@ -133,9 +133,9 @@ const ThalassemiaScreening = () => {
     else if ((mcv < 80 || mch < 27) && dcip === "positive") {
       setStep2Result({
               type: 'unnormal',
-              title: 'มีความเสี่ยงต่อราลัสซีเมีย',
+              title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
               details: [
-                '- ผลเลือดของสามีอาจมี α thalassemia และหรือ β -thalassemia  โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2','- ส่วน β -thalassemiaมีโอกาสเป็นได้ทั้ง  β0 -thalassemia และ β+ -thalassemia',
+                '- ผลเลือดของสามีอาจมี α thalassemia และหรือ β -thalassemia  โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2','- ส่วน β -thalassemiaมีโอกาสเป็นได้ทั้ง  β⁰ -thalassemia และ β⁺ -thalassemia',
                 '- สามีมี Hb E','- ทารกในครรภ์มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
               ],
               advice: 'ส่งตรวจ Hb typing เพิ่มเติมทั้งหญิงตั้งครรภ์และสามีหญิงตั้งครรภ์'
@@ -241,7 +241,7 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
             <p className="text-xs sm:text-sm text-gray-600">โรคเลือดจางชนิดรุนแรง</p>
           </div>
           <div className="bg-gray-100 p-3 sm:p-4 rounded-lg">
-            <h3 className="font-semibold text-base sm:text-lg lg:text-[20px] mb-1">3. β0-thalassemia/Hb E</h3>
+            <h3 className="font-semibold text-base sm:text-lg lg:text-[20px] mb-1">3. β⁰-thalassemia/Hb E</h3>
             <p className="text-xs sm:text-sm text-gray-600">โรคเลือดจางชนิดรุนแรง</p>
           </div> */}
         </div>
@@ -712,7 +712,7 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
                 </div>
                 <div className="flex items-center p-2 sm:p-3 bg-white/50 rounded-lg">
                   <span className="w-2 h-2 bg-red-500 rounded-full mr-2 sm:mr-3 flex-shrink-0"></span>
-                  <span className="break-words">β-thalassemia: β0 และ β+</span>
+                  <span className="break-words">β-thalassemia: β⁰ และ β⁺</span>
                 </div>
               </div>
             </div>
