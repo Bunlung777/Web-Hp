@@ -535,7 +535,7 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
                     disabled={isStep2Disabled}
                     className={`w-full h-12 rounded-2xl font-semibold transition ${isStep2Disabled ? disabledBtn : activeBtn}`}
                   >
-                    วิเคราะห์ผลหญิงตั้งครรภ์
+                    วิเคราะห์ผลสามี
                   </button>
                 </div>
               </div>
