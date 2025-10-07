@@ -161,7 +161,7 @@ const LoginThemed = () => {
                     <Heart className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h1 className="text-2xl font-bold leading-tight">ThaLoeiLRU</h1>
+                    <h1 className="text-2xl font-bold leading-tight">ThalLoeiLRU</h1>
                     <p className="text-white/90 text-sm">ระบบคัดกรองธาลัสซีเมีย</p>
                   </div>
                 </div>
