@@ -174,7 +174,7 @@ const LoginThemed = () => {
                 </div>
 
                 <div className="mt-auto pt-10 text-white/80 text-xs">
-                  © {new Date().getFullYear()} ThaiLoeiLRU — All rights reserved.
+                  © {new Date().getFullYear()} ThalLoeiLRU — All rights reserved.
                 </div>
               </div>
             </div>
