@@ -4,11 +4,7 @@ import Lru from './Img/colormag-logolru-11.png';
 import Hp from './Img/loeih-logo_.png';
 import Dr from './Img/image 1.png';
 import { useNavigate } from 'react-router-dom';
-// ชนิดข้อมูลที่ใช้ภายในไฟล์นี้ (ไม่จำเป็นต้องเป็น TypeScript ก็ได้ แต่ช่วยอธิบายในโค้ด)
-/**
- * screeningRules: รายการผล HPLC/ผลคัดกรองที่เป็นไปได้
- * combinations: กฎจับคู่ผล หญิงตั้งครรภ์_สามี -> ระดับความเสี่ยง/คำแนะนำ
- */
+import Navbar from './Navbar';
 
 const screeningRules = {
   A2A_low: {
@@ -102,6 +98,12 @@ const combinations = {
 
   // ความเสี่ยงสูง
   A2A_low_A2A_low: {
+    risk: 'high_risk',
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
+    advice:
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
+  },
+    A2A_low_HbH: {
     risk: 'high_risk',
     details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด Hb Bart's hydrops fetalis",
     advice:
@@ -492,64 +494,8 @@ const Blood = () => {
   const riskUI = result ? getRiskUI(result.screening.risk) : null;
 
   return (
-    <div className="font-kanit mx-auto bg-white px-4 sm:px-6 lg:px-10 py-4 sm:py-6 max-w-[1600px]">
-      {/* Header */}
-      <div>
-        {/* Mobile */}
-        <div className="flex flex-col sm:hidden mb-6 border-b border-gray-300 pb-4 space-y-4">
-          <div className="flex items-center justify-between">
-            <img src={Hp} className="w-32 h-auto" alt="HP Logo" />
-            <img src={Lru} className="w-[120px] h-auto rounded" alt="LRU Mark" />
-          </div>
-          <h1 className="text-lg font-bold text-gray-800 text-center">
-            การตรวจคัดกรองธาลัสซีเมียในหญิงตั้งครรภ์
-          </h1>
-        </div>
-        {/* Desktop/Tablet */}
-        <div className="hidden sm:flex flex-row items-center justify-between mb-12 border-b border-gray-300 pb-4">
-          <img src={Hp} className="w-40 lg:w-[170px] h-auto" alt="HP Logo" />
-          <h1 className="text-2xl lg:text-[32px] font-bold text-gray-800 text-center flex-1 px-2">
-            การตรวจคัดกรองธาลัสซีเมียในหญิงตั้งครรภ์
-          </h1>
-          <img src={Lru} className="w-[170px] h-auto rounded" alt="LRU Mark" />
-        </div>
-      </div>
-
-      {/* Disease Types */}
-      <div className="mb-6 sm:mb-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="p-3 sm:p-4 rounded-lg col-span-1 sm:col-span-2 lg:col-span-1">
-            <h3 className="font-semibold text-lg sm:text-xl lg:text-[25px] mb-2">ระดับที่ 2 </h3>
-            <p className="text-gray-600 text-sm sm:text-base lg:text-[15px]">
-              เพื่อค้นหาโรคเลือดจางธาลัสซีเมียขณะตั้งครรภ์
-            </p>
-          </div>
-    <div className="text-center mb-12">
-      <button
-        onClick={() => navigate('/ThalassemiaScreening')}
-        className="w-[300px] bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 px-8 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-      >
-        ระดับที่ 1 
-      </button>
-          </div>
-    <div className="text-center mb-12">
-      <button
-        onClick={() => navigate('/Blood')}
-        className="w-[300px] bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 px-8 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-      >
-          ระดับที่ 2
-      </button>
-    </div>
-    <div className="text-center mb-12">
-      <button
-        onClick={() => navigate('/Admin')}
-        className="w-[300px] bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 px-8 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-      >
-          Admin
-      </button>
-    </div>
-        </div>
-      </div>
+    <div className="font-kanit mx-auto bg-white">
+        <Navbar /> 
 
       {/* Step 1 and Step 2 Forms */}
       <div className="p-4 max-w-7xl mx-auto">

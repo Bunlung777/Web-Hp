@@ -102,7 +102,7 @@ const LoginThemed = () => {
 
   const handleGuest = () => {
     navigate("/ThalassemiaScreening", {
-      state: { toast: { type: "success", message: "เข้าสู่ระบบในฐานะ Guest สำเร็จ!" } },
+      state: { toast: { type: "success", message: "" } },
       replace: true,
     });
   };
@@ -122,7 +122,7 @@ const LoginThemed = () => {
       </div>
 
       {/* Top Alert */}
-      <div className="fixed top-0 inset-x-0 z-50 flex justify-center pointer-events-none">
+      {/* <div className="fixed top-0 inset-x-0 z-50 flex justify-center pointer-events-none">
         <div
           className={[
             "mt-3 w-full max-w-xl rounded-xl border p-3 shadow-lg transition-all duration-300 pointer-events-auto",
@@ -147,7 +147,7 @@ const LoginThemed = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* content */}
       <div className="relative z-10 mx-auto max-w-5xl px-4 py-10 md:py-16">
@@ -186,13 +186,13 @@ const LoginThemed = () => {
               <h2 className="text-2xl font-bold text-white flex items-center justify-center gap-2">
                 <Shield className="w-6 h-6" /> เข้าสู่ระบบ
               </h2>
-              <p className="text-white/90 text-sm mt-1">เลือกอำเภอ → หน่วยบริการ → กรอกรหัสผ่าน</p>
+              {/* <p className="text-white/90 text-sm mt-1">เลือกอำเภอ → หน่วยบริการ → กรอกรหัสผ่าน</p> */}
             </div>
 
             <div className="p-6 md:p-8" onKeyDown={onKeyDown}>
               <div className="space-y-6">
                 {/* District */}
-                <Field label="อำเภอ" icon={MapPin}>
+                {/* <Field label="อำเภอ" icon={MapPin}>
                   <select
                     value={selectedDistrict}
                     onChange={(e) => {
@@ -212,25 +212,25 @@ const LoginThemed = () => {
                       </option>
                     ))}
                   </select>
-                </Field>
+                </Field> */}
 
                                   {/* Hospital */}
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {/* <label className="block text-sm font-medium text-gray-700 mb-2">
                     หน่วยบริการ / โรงพยาบาล
-                  </label>
+                  </label> */}
 
                   {/* กล่อง select (สูงคงที่ + relative เฉพาะส่วนนี้) */}
-                  <div className="relative">
+                  {/* <div className="relative"> */}
                     {/* ไอคอนซ้าย ตรึงกลางแนวแกน Y ของ select */}
-                    <Building2
+                    {/* <Building2
                       className="
                         absolute left-3 top-1/2 -translate-y-1/2
                         h-5 w-5 text-gray-400 pointer-events-none
                       "
-                    />
+                    /> */}
 
                     {/* ซ่อนลูกศร native + ให้ความสูงคงที่ */}
-                    <select
+                    {/* <select
                       value={selectedUserId}
                       onChange={(e) => setSelectedUserId(e.target.value)}
                       disabled={!selectedDistrict}
@@ -247,29 +247,29 @@ const LoginThemed = () => {
                       {hospitalsInDistrict.map((u) => (
                         <option key={u.id} value={u.id}>{u.UserName}</option>
                       ))}
-                    </select>
+                    </select> */}
 
                     {/* ลูกศรขวา (เลือกใส่/ไม่ใส่ก็ได้) */}
-                    <svg
+                    {/* <svg
                       className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none"
                       viewBox="0 0 20 20" fill="currentColor"
                     >
                       <path d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" />
                     </svg>
-                  </div>
+                  </div> */}
 
                   {/* แถว badge/status แยกออกมา ไม่อยู่ใน relative เดียวกับ select */}
-                  <div className="mt-2 flex items-center gap-2 text-xs">
+                  {/* <div className="mt-2 flex items-center gap-2 text-xs">
                     <span className="px-2 py-1 rounded bg-emerald-50 text-emerald-700">เจ้าหน้าที่</span>
                     <span className="px-2 py-1 rounded bg-gray-100 text-gray-600">
                       เข้าใช้ {selectedUser?.Count ?? 0} ครั้ง
                     </span>
                     <span className="ml-auto text-emerald-600">{selectedUser?.Active ? "Active" : "Inactive"}</span>
-                  </div>
+                  </div> */}
 
 
                 {/* Username (read-only) */}
-                <Field label="ชื่อผู้ใช้ (อัตโนมัติจากหน่วยบริการ)" icon={User}>
+                {/* <Field label="ชื่อผู้ใช้ (อัตโนมัติจากหน่วยบริการ)" icon={User}>
                   <input
                     type="text"
                     value={username}
@@ -277,10 +277,10 @@ const LoginThemed = () => {
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl bg-gray-50 text-gray-700"
                     placeholder="เลือกหน่วยบริการก่อน"
                   />
-                </Field>
+                </Field> */}
 
                 {/* Password */}
-                <Field label="รหัสผ่าน" icon={Lock}>
+                {/* <Field label="รหัสผ่าน" icon={Lock}>
                   <input
                     type={showPassword ? "text" : "password"}
                     value={password}
@@ -297,10 +297,10 @@ const LoginThemed = () => {
                   >
                     {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
-                </Field>
+                </Field> */}
 
                 {/* Submit */}
-                <button
+                {/* <button
                   type="button"
                   onClick={trySubmit}
                   disabled={isSubmitDisabled}
@@ -319,14 +319,14 @@ const LoginThemed = () => {
                       เข้าสู่ระบบ <ArrowRight className="w-5 h-5" />
                     </span>
                   )}
-                </button>
+                </button> */}
 
                 {/* Divider */}
-                <div className="flex items-center gap-3 text-gray-400 text-sm">
+                {/* <div className="flex items-center gap-3 text-gray-400 text-sm">
                   <div className="flex-1 h-px bg-gray-200" />
                   <span>หรือ</span>
                   <div className="flex-1 h-px bg-gray-200" />
-                </div>
+                </div> */}
 
                 {/* Guest */}
                 <div className="bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-200 rounded-xl p-4">

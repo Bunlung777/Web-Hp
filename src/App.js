@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Lru from './Img/colormag-logolru-11.png';
 import Hp from './Img/loeih-logo_.png';
 import Dr from './Img/image 1.png';
+import People from './Img/peole.png';
+import Navbar from './Navbar';
 const ThalassemiaScreening = () => {
   const [step1MCV, setStep1MCV] = useState('');
   const [step1MCH, setStep1MCH] = useState('');
@@ -151,7 +153,11 @@ const disabledBtn = 'bg-gradient-to-r from-gray-300 to-gray-300 text-white shado
 const activeBtn   = 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5';
 const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
   return (
- <div className="font-kanit mx-auto bg-white px-4 sm:px-6 lg:px-10 py-4 sm:py-6 max-w-[1600px]">
+ <div className="font-kanit bg-white max-w-full">
+        <Navbar /> 
+        {/* <div className="bg-emerald-50 text-emerald-800 text-center py-2 font-semibold border-b border-emerald-200">
+  คุณกำลังอยู่ใน <span className="text-emerald-600">ระดับที่ 1</span>
+</div> */}
   <div className="fixed top-0 inset-x-0 z-50 flex justify-center pointer-events-none">
      <div
        className={[
@@ -179,21 +185,16 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
      </div>
     </div>
   {/* Header */}
-    <div className="">
-      {/* Mobile Layout: Images on top row, text below */}
+    {/* <div className="">
       <div className="flex flex-col sm:hidden mb-6 border-b border-gray-300 pb-4 space-y-4">
-        {/* Top row with images */}
         <div className="flex items-center justify-between">
           <img src={Hp} className="w-32 h-auto" alt="HP Logo" />
           <img src={Lru} className="w-[120px] h-auto rounded" alt="LRU Mark" />
         </div>
-        {/* Bottom row with title */}
         <h1 className="text-lg font-bold text-gray-800 text-center">
           การตรวจคัดกรองธาลัสซีเมียในหญิงตั้งครรภ์
         </h1>
       </div>
-
-      {/* Desktop/Tablet Layout: Original horizontal layout */}
       <div className="hidden sm:flex flex-row items-center justify-between mb-12 border-b border-gray-300 pb-4">
         <img src={Hp} className="w-40 lg:w-[170px] h-auto" alt="HP Logo" />
         <h1 className="text-2xl lg:text-[32px] font-bold text-gray-800 text-center flex-1 px-2">
@@ -201,10 +202,10 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
         </h1>
         <img src={Lru} className="w-[170px] h-auto rounded" alt="LRU Mark" />
       </div>
-      </div>
+      </div> */}
 
  {/* Disease Types */}
-      <div className="mb-6 sm:mb-8">
+      {/* <div className="mb-6 sm:mb-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="p-3 sm:p-4 rounded-lg col-span-1 sm:col-span-2 lg:col-span-1">
             <h3 className="font-semibold text-lg sm:text-xl lg:text-[25px] mb-2">ระดับที่ 1 </h3>
@@ -236,16 +237,16 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
           Admin
       </button>
     </div>
-          {/* <div className="bg-gray-100 p-3 sm:p-4 rounded-lg">
+          <div className="bg-gray-100 p-3 sm:p-4 rounded-lg">
             <h3 className="font-semibold text-base sm:text-lg lg:text-[20px] mb-1">2. Homozygous β-thalassemia</h3>
             <p className="text-xs sm:text-sm text-gray-600">โรคเลือดจางชนิดรุนแรง</p>
           </div>
           <div className="bg-gray-100 p-3 sm:p-4 rounded-lg">
             <h3 className="font-semibold text-base sm:text-lg lg:text-[20px] mb-1">3. β⁰-thalassemia/Hb E</h3>
             <p className="text-xs sm:text-sm text-gray-600">โรคเลือดจางชนิดรุนแรง</p>
-          </div> */}
+          </div>
         </div>
-      </div>
+      </div> */}
 
   {/* Step 1 */}
 <div className="p-4 max-w-7xl mx-auto">
@@ -721,6 +722,79 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
         </div>
       </div>
     </div>
+    {/* Developer Section */}
+<section className="mt-20 bg-gradient-to-br from-emerald-50 via-white to-cyan-50 py-12 relative overflow-hidden">
+  <div className="max-w-6xl mx-auto px-6 relative z-10">
+    <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-emerald-700 mb-12">
+      ผู้ร่วมพัฒนาระบบ
+    </h2>
+
+    {/* 3 คนแถวบน */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+      {[{ name: "นายแพทย์ ทวิช ศรีเกษม", 
+          role: (
+            <>
+              นพ.ชำนาญการพิเศษ แพทย์ผู้เชี่ยวชาญด้านสูติศาสตร์-นรีเวชวิทยา แผนกเวชกรรมสังคม 
+              <br />
+              โรงพยาบาลเลย
+            </>
+          ), 
+          img: People 
+        },
+        { name: "รศ.ดร. กิตติศักดิ์ แสนประสิทธ์", role: "คณะเทคโนโลยีอุตสาหกรรม มหาวิทยาลัยราชภัฏเลย", img: "/img/dev2.jpg" },
+        { name: "ผศ.ดร. คมยุทธ ไชยวงษ์", role: "คณะเทคโนโลยีอุตสาหกรรม มหาวิทยาลัยราชภัฏเลย", img: "/img/dev3.jpg" },
+      ].map((dev, i) => (
+        <div
+          key={i}
+          className="bg-white rounded-2xl shadow-lg border border-emerald-100 p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+        >
+          <div className="w-24 h-24 mx-auto rounded-full border-4 border-emerald-300 shadow-md bg-white flex items-center justify-center">
+            <img
+              src={People}
+              alt={dev.name}
+              className="w-[80%] h-[80%] object-cover rounded-full"
+            />
+          </div>
+          <h3 className="mt-4 text-lg font-bold text-gray-800">{dev.name}</h3>
+          <p className="text-emerald-600 font-medium text-sm">{dev.role}</p>
+        </div>
+      ))}
+    </div>
+
+    {/* 2 คนแถวล่าง (ตรงกลาง) */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 justify-center max-w-3xl mx-auto">
+      {[
+        { name: "ดร.สุไพลิน พิชัย", role: "สาขาวิชาวิทยาการคอมพิวเตอร์ คณะวิทยาศาตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏเลย", img: "/img/dev4.jpg" },
+        { name: "นายณภัทร พลหอม", role: "สาขาวิชาวิทยาการคอมพิวเตอร์ คณะวิทยาศาตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏเลย", img: "/img/dev5.jpg" },
+      ].map((dev, i) => (
+        <div
+          key={i}
+          className="bg-white rounded-2xl shadow-lg border border-emerald-100 p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+        >
+          <div className="w-24 h-24 mx-auto rounded-full border-4 border-cyan-300 shadow-md bg-white flex items-center justify-center">
+            <img
+              src={People}
+              alt={dev.name}
+              className="w-[80%] h-[80%] object-cover rounded-full"
+            />
+          </div>
+          <h3 className="mt-4 text-lg font-bold text-gray-800">{dev.name}</h3>
+          <p className="text-cyan-600 font-medium text-sm">{dev.role}</p>
+        </div>
+      ))}
+    </div>
+
+    {/* ข้อความปิดท้าย */}
+    <p className="text-center text-gray-500 mt-12 text-sm">
+      © {new Date().getFullYear()} ThalLoei Trial V.10 — Science and Technology, Loei Rajabhat University
+    </p>
+  </div>
+
+  {/* เพิ่มแสงตกแต่งพื้นหลังเบา ๆ */}
+  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-cyan-200/20 blur-[100px] rounded-full"></div>
+</section>
+
+
 </div>
   );
 };
