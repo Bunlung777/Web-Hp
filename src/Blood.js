@@ -36,7 +36,7 @@ const screeningRules = {
     description: 'Hb H-Cs disease',
   },
   EF: {
-    label: 'EF (Hb E 40-80%, F 20-60%)',
+    label: 'EF (Hb E ≥ 40-80%, F ≥ 20-60%)',
     description: 'β⁰ -thalassemia /Hb E or HPFH/HbE or (&β⁰ )\n –thalassemia/Hb E with or without α-thalassemia',
   },
   EF_homozygous: {
@@ -95,6 +95,40 @@ const combinations = {
     advice:
       'ส่งพบแพทย์เพื่อให้คำแนะนำทางพันธุศาสตร์ (genetic counseling)\nไม่มีความจำเป็นต้องตรวจเพิ่มเติม',
   },
+      EA_high_HbH: {
+      risk: 'no_risk',
+      details: `ทารกในครรภ์ไม่มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง`,
+      advice: `ส่งพบแพทย์เพื่อให้คำแนะนำทางพันธุศาสตร์ (genetic counseling)
+ไม่มีความจำเป็นต้องตรวจเพิ่มเติม`,
+    },
+    EA_high_HbH_Cs: {
+      risk: 'no_risk',
+      details: `ทารกในครรภ์ไม่มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง`,
+      advice: `ส่งพบแพทย์เพื่อให้คำแนะนำทางพันธุศาสตร์ (genetic counseling)
+ไม่มีความจำเป็นต้องตรวจเพิ่มเติม`,
+    },
+    EA_high_A2A_low: {
+      risk: 'no_risk',
+      details: `ทารกในครรภ์ไม่มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง`,
+      advice: `ไม่มีความจำเป็นต้องตรวจเพิ่มเติม`,
+    },
+    EA_high_A2A_high: {
+      risk: 'no_risk',
+      details: `ทารกในครรภ์ไม่มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง`,
+      advice: `ไม่มีความจำเป็นต้องตรวจเพิ่มเติม`,
+    },
+    EA_high_EA_high: {
+      risk: 'no_risk',
+      details: `ทารกในครรภ์ไม่มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง`,
+      advice: `ส่งพบแพทย์เพื่อให้คำแนะนำทางพันธุศาสตร์ (genetic counseling)
+ไม่มีความจำเป็นต้องตรวจเพิ่มเติม`,
+    },
+    EA_low_EA_high: {
+      risk: 'no_risk',
+      details: `ทารกในครรภ์ไม่มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง`,
+      advice: `ส่งพบแพทย์เพื่อให้คำแนะนำทางพันธุศาสตร์ (genetic counseling)
+ไม่มีความจำเป็นต้องตรวจเพิ่มเติม`,
+    },
 
   // ความเสี่ยงสูง
   A2A_low_A2A_low: {
@@ -188,17 +222,20 @@ const combinations = {
     advice:
       'ส่งตรวจวิเคราะห์เพิ่มเติม ระดับ ดีเอ็นเอ (DNA analysis)เพื่อค้นหา α -thalassemia 1 β⁰ -thalassemia',
   },
-  EF_homozygous_EF_homozygous: {
-    risk: 'high_risk',
-    details:
-      "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β⁰ -thalassemia/Hb E",
-    advice:
-      'ส่งตรวจวิเคราะห์เพิ่มเติม ระดับ ดีเอ็นเอ (DNA analysis)เพื่อค้นหา α -thalassemia 1 β⁰ -thalassemia',
-  },
+    EF_homozygous_EF_homozygous: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+    - Hb Bart's hydrops fetalis
+    - β⁰-thalassemia/Hb E,
+    - Homozygous β -thalassemia`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+    เพื่อค้นหา α-thalassemia 1 หรือ β⁰-thalassemia`,
+    }
+    ,
   EF_EF_homozygous: {
     risk: 'high_risk',
     details:
-      "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β⁰ -thalassemia/Hb E",
+      "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β⁰ -thalassemia/Hb E \n - Homozygous β -thalassemia ",
     advice:
       'ส่งตรวจวิเคราะห์เพิ่มเติม ระดับ ดีเอ็นเอ (DNA analysis)เพื่อค้นหา α -thalassemia 1 β⁰ -thalassemia',
   },
@@ -238,9 +275,9 @@ const combinations = {
   EF_EF: {
     risk: 'high_risk',
     details:
-      "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β⁰-thalassemia/Hb E",
+      "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β⁰-thalassemia/Hb E \n- Homozygous β -thalassemia",
     advice:
-      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1, β⁰-thalassemia',
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)เพื่อค้นหา α-thalassemia 1 และ β⁰-thalassemia ',
   },
   A2A_high_EF: {
     risk: 'high_risk',
@@ -254,7 +291,7 @@ const combinations = {
     details:
       'ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด \n- Hb Barts hydrops fetalis- β⁰ \n-thalassemia/Hb E- Homozygous β -thalassemia',
     advice:
-      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1, β⁰-thalassemia',
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)เพื่อค้นหา α-thalassemia 1 และ β⁰-thalassemia',
   },
   EF_HbH_Cs: {
     risk: 'high_risk',
@@ -318,7 +355,7 @@ const combinations = {
     details:
       "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β⁰-thalassemia/Hb E",
     advice:
-      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1, β⁰-thalassemia',
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)เพื่อค้นหา α-thalassemia 1 และ β⁰-thalassemia',
   },
 
   // EF + A2A_low → ส่วนใหญ่เสี่ยง Hb Bart’s (ฝั่ง EF ในเอกสารครอบคลุม pairing กว้าง)
@@ -374,7 +411,7 @@ const combinations = {
     details:
       "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β⁰-thalassemia/Hb E",
     advice:
-      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1, β⁰-thalassemia',
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)เพื่อค้นหา α-thalassemia 1 และ β⁰-thalassemia',
   },
   HbH_HbH_Cs: {
     risk: 'high_risk',
@@ -418,7 +455,7 @@ const combinations = {
     details:
       "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β⁰-thalassemia/Hb E",
     advice:
-      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1, β⁰-thalassemia',
+      'ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)เพื่อค้นหา α-thalassemia 1 และ β⁰-thalassemia',
   },
   HbH_Cs_HbH_Cs: {
     risk: 'high_risk',
@@ -426,6 +463,279 @@ const combinations = {
     advice:
       'ส่งตรวจวิเคราะห์เพิ่มเติมระดับ ดีเอ็นเอ (DNA analysis) เพื่อค้นหา α-thalassemia 1',
   },
+  EF_HbH: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1`,
+    },
+
+    // #52 EF (หญิง) + EA_high (ชาย)
+    EF_EA_high: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- β⁰-thalassemia/Hb E`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา β⁰-thalassemia`,
+    },
+
+    // #53 EF (หญิง) + EA_low (ชาย)
+    EF_EA_low: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis
+- β⁰-thalassemia/Hb E`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1 และ β⁰-thalassemia`,
+    },
+
+    // #54 HbH_Cs (หญิง) + A2A_low (ชาย)
+    HbH_Cs_A2A_low: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1`,
+    },
+
+    // #55 HbH_Cs (หญิง) + EF (ชาย)
+      HbH_Cs_EF: {
+        risk: 'high_risk',
+        details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+      - Hb Bart’s hydrops fetalis
+      - β⁰-thalassemia/Hb E`,
+        advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+      เพื่อค้นหา
+      - α-thalassemia 1
+      - β⁰-thalassemia`,
+      },
+
+    // #56 HbH_Cs (หญิง) + HbH (ชาย)
+    HbH_Cs_HbH: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis`,
+      advice: `ส่งพบแพทย์พิจารณาเจาะน้ำคร่ำเพื่อวินิจฉัยทารกในครรภ์ (amniocentesis)`,
+    },
+
+    // #57 HbH_Cs (หญิง) + HbH_Cs (ชาย)
+    HbH_Cs_HbH_Cs: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis`,
+      advice: `ส่งพบแพทย์พิจารณาเจาะน้ำคร่ำเพื่อวินิจฉัยทารกในครรภ์ (amniocentesis)`,
+    },
+
+    // #58 A2A_low (หญิง) + EF_homozygous (ชาย)
+    A2A_low_EF_homozygous: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1`,
+    },
+
+    // #59 A2A_high (หญิง) + EF_homozygous (ชาย)
+    A2A_high_EF_homozygous: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis
+- β⁰-thalassemia/Hb E
+- Homozygous β-thalassemia`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1 และ β⁰-thalassemia`,
+    },
+
+    // #60 EA_high (หญิง) + EF_homozygous (ชาย)
+    EA_high_EF_homozygous: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- β⁰-thalassemia/Hb E`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา β⁰-thalassemia`,
+    },
+
+    // #61 EA_low (หญิง) + EF_homozygous (ชาย)
+    EA_low_EF_homozygous: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis
+- β⁰-thalassemia/Hb E`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1 และ β⁰-thalassemia`,
+    },
+
+    // #62 EE (หญิง) + EF_homozygous (ชาย)
+    EE_EF_homozygous: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis
+- β⁰-thalassemia/Hb E`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1 และ β⁰-thalassemia`,
+    },
+
+    // #63 A2A_low (หญิง) + HbH (ชาย)
+    A2A_low_HbH: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1`,
+    },
+
+    // #64 A2A_high (หญิง) + HbH (ชาย)
+    A2A_high_HbH: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1`,
+    },
+
+    // #66 EA_low (หญิง) + HbH (ชาย)
+    EA_low_HbH: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1`,
+    },
+
+    // #67 EE (หญิง) + HbH (ชาย)
+    EE_HbH: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1`,
+    },
+
+    // #68 A2A_high (หญิง) + HbH_Cs (ชาย)
+    A2A_high_HbH_Cs: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1`,
+    },
+
+    // #70 EA_low (หญิง) + HbH_Cs (ชาย)
+    EA_low_HbH_Cs: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1`,
+    },
+
+    // #71 EE (หญิง) + HbH_Cs (ชาย)
+    EE_HbH_Cs: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1`,
+    },
+
+    // #72 A2A_low (หญิง) + EF (ชาย)
+    A2A_low_EF: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1`,
+    },
+
+    // #73 A2A_high (หญิง) + EF (ชาย)
+    A2A_high_EF: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis
+- β⁰-thalassemia/Hb E
+- Homozygous β-thalassemia`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1 และ β⁰-thalassemia`,
+    },
+
+    // #74 EA_high (หญิง) + EF (ชาย)
+    EA_high_EF: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- β⁰-thalassemia/Hb E`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา β⁰-thalassemia`,
+    },
+
+    // #75 EA_low (หญิง) + EF (ชาย)
+    EA_low_EF: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis
+- β⁰-thalassemia/Hb E`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1 และ β⁰-thalassemia`,
+    },
+
+    // #76 EE (หญิง) + EF (ชาย)
+    EE_EF: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis
+- β⁰-thalassemia/Hb E`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1 และ β⁰-thalassemia`,
+    },
+
+    // #77 A2A_low (หญิง) + EF_homozygous (ชาย)
+    A2A_low_EF_homozygous_2: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1`,
+    },
+
+    // #78 A2A_high (หญิง) + EF_homozygous (ชาย)
+    A2A_high_EF_homozygous_2: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis
+- β⁰-thalassemia/Hb E
+- Homozygous β-thalassemia`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1 และ β⁰-thalassemia`,
+    },
+
+    // #79 EA_high (หญิง) + EF_homozygous (ชาย)
+    EA_high_EF_homozygous_2: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- β⁰-thalassemia/Hb E`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา β⁰-thalassemia`,
+    },
+
+    // #80 EA_low (หญิง) + EF_homozygous (ชาย)
+    EA_low_EF_homozygous_2: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis
+- β⁰-thalassemia/Hb E`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1 และ β⁰-thalassemia`,
+    },
+
+    // #81 EE (หญิง) + EF_homozygous (ชาย)
+    EE_EF_homozygous_2: {
+      risk: 'high_risk',
+      details: `ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด
+- Hb Bart’s hydrops fetalis
+- β⁰-thalassemia/Hb E`,
+      advice: `ส่งตรวจวิเคราะห์เพิ่มเติมระดับดีเอ็นเอ (DNA analysis)
+เพื่อค้นหา α-thalassemia 1 และ β⁰-thalassemia`,
+    },
 };
 
 function getScreeningResult(womanKey, husbandKey) {
