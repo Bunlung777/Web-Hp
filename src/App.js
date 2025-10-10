@@ -5,6 +5,7 @@ import Lru from './Img/colormag-logolru-11.png';
 import Hp from './Img/loeih-logo_.png';
 import Dr from './Img/image 1.png';
 import People from './Img/peole.png';
+import Napat from './Img/0001 (3).jpg'
 import Navbar from './Navbar';
 const ThalassemiaScreening = () => {
   const [step1MCV, setStep1MCV] = useState('');
@@ -764,8 +765,8 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
     {/* 2 คนแถวล่าง (ตรงกลาง) */}
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 justify-center max-w-3xl mx-auto">
       {[
-        { name: "ดร.สุไพลิน พิชัย", role: "สาขาวิชาวิทยาการคอมพิวเตอร์ คณะวิทยาศาตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏเลย", img: "/img/dev4.jpg" },
-        { name: "นายณภัทร พลหอม", role: "สาขาวิชาวิทยาการคอมพิวเตอร์ คณะวิทยาศาตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏเลย", img: "/img/dev5.jpg" },
+        { name: "ดร.สุไพลิน พิชัย", role: "สาขาวิชาวิทยาการคอมพิวเตอร์ คณะวิทยาศาตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏเลย", img: People },
+        { name: "นายณภัทร พลหอม", role: "สาขาวิชาวิทยาการคอมพิวเตอร์ คณะวิทยาศาตร์และเทคโนโลยี มหาวิทยาลัยราชภัฏเลย", img: Napat },
       ].map((dev, i) => (
         <div
           key={i}
@@ -773,7 +774,7 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
         >
           <div className="w-24 h-24 mx-auto rounded-full border-4 border-cyan-300 shadow-md bg-white flex items-center justify-center">
             <img
-              src={People}
+              src={dev.img}
               alt={dev.name}
               className="w-[80%] h-[80%] object-cover rounded-full"
             />
@@ -786,7 +787,7 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
 
     {/* ข้อความปิดท้าย */}
     <p className="text-center text-gray-500 mt-12 text-sm">
-      © {new Date().getFullYear()} ThalLoei Trial V.10 — Science and Technology, Loei Rajabhat University
+      © {new Date().getFullYear()} ThalLoei Trial V.1.0 — Science and Technology, Loei Rajabhat University
     </p>
   </div>
 

@@ -1057,7 +1057,7 @@ const Blood = () => {
 
     {/* ข้อความปิดท้าย */}
     <p className="text-center text-gray-500 mt-12 text-sm">
-      © {new Date().getFullYear()} ThalLoei Trial V.10 — Science and Technology, Loei Rajabhat University
+      © {new Date().getFullYear()} ThalLoei Trial V.1.0 — Science and Technology, Loei Rajabhat University
     </p>
   </div>
 
