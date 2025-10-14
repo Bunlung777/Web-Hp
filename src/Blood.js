@@ -164,7 +164,7 @@ const combinations = {
   },
   EF_homozygous_A2A_high: {
     risk: 'high_risk',
-    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β⁰ -thalassemia/Hb E \n- Homozygous \n - β -thalassemia ",
+    details: "ทารกในครรภ์อาจมีความเสี่ยงที่จะเกิด\n- Hb Bart's hydrops fetalis\n- β⁰ -thalassemia/Hb E \n- Homozygousβ -thalassemia ",
     advice:
       'ส่งตรวจวิเคราะห์เพิ่มเติม ระดับ ดีเอ็นเอ (DNA analysis)เพื่อค้นหา α -thalassemia 1 และ β⁰ -thalassemia',
   },
