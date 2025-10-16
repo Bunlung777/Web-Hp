@@ -75,7 +75,7 @@ const ThalassemiaScreening = () => {
     else if (mcv >= 80 && mch >= 27 && dcip === "positive") {
       setStep1Result({
               type: 'unnormal',
-              title: 'ปกติ - ไม่เสี่ยงต่อธาลัสซีเมีย',
+              title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
               details: [
                 '- ไม่มี α thalassemia และหรือ β -thalassemia',
                 '- มี Hb E'
