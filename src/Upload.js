@@ -17,7 +17,7 @@ const firebaseConfig = {
 const normalizeDistrict = (raw = "") => raw.replace(/^\s*อ[.\s]?/i, "").trim();
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const db = getFirestore(app);
-export default function ImportHospitals() {
+const ImportHospitals = () => {
   const [running, setRunning] = useState(false);
   const [done, setDone] = useState(0);
   const [total, setTotal] = useState(0);
@@ -137,3 +137,4 @@ const handleImport = async () => {
     </div>
   );
 }
+export default ImportHospitals;

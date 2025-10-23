@@ -12,6 +12,24 @@ import Te1 from './Img/Te1.jpg'
 import Te2 from './Img/Te2.jpg'
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { doc, collection, addDoc, updateDoc, increment, serverTimestamp,getFirestore } from "firebase/firestore";
+
+// ถ้ามี firebaseConfig อยู่ไฟล์อื่น ให้ import มาแทนบรรทัดนี้
+// import { firebaseConfig } from "@/firebaseConfig";
+const firebaseConfig = {
+  apiKey: "AIzaSyAyXiH4tR_fNFxiLJX62OFo92T0f9Zv3Qw",
+  authDomain: "hp-project-b5b21.firebaseapp.com",
+  projectId: "hp-project-b5b21",
+  storageBucket: "hp-project-b5b21.firebasestorage.app",
+  messagingSenderId: "672851387793",
+  appId: "1:672851387793:web:8f09499b9a68391ed6a630",
+  measurementId: "G-BNV4F6E4P0",
+};
+
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 const ThalassemiaScreening = () => {
   const [step1MCV, setStep1MCV] = useState('');
   const [step1MCH, setStep1MCH] = useState('');
@@ -22,137 +40,256 @@ const ThalassemiaScreening = () => {
   const [step1Result, setStep1Result] = useState(null); 
   const [step2Result, setStep2Result] = useState(null); 
   const [showNextForm, setShowNextForm] = useState(false);
+  const [user, setUser] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
-  
   const alertTimer = useRef(null);
   const [alert, setAlert] = useState({ show: false, message: '', type: 'success' }); // 'success' | 'error'
+  const [sessionId, setSessionId] = useState(null);
+
+  useEffect(() => {
+    if (location.state?.user) {
+      setUser(location.state.user);
+      console.log("✅ รับข้อมูล user:", location.state.user);
+    }
+  }, [location.state]);
+
+
   const showAlert = (message, type = 'success', timeout = 500) => {
     setAlert({ show: true, message, type });
-      if (alertTimer.current) clearTimeout(alertTimer.current);
-      if (timeout) {
-      alertTimer.current = setTimeout(() => setAlert(a => ({ ...a, show: false })), timeout);
-      }
-    };
- useEffect(() => {
+    if (alertTimer.current) clearTimeout(alertTimer.current);
+    if (timeout) {
+      alertTimer.current = setTimeout(
+        () => setAlert(a => ({ ...a, show: false })),
+        timeout
+      );
+    }
+  };
+
+useEffect(() => { 
     const toast = location.state?.toast;
     if (toast?.message) {
-       showAlert(toast.message, toast.type || 'success', toast.timeout ?? 2000);
-      // ล้าง state ออกจาก history กันยิงซ้ำเวลา refresh/back
+      showAlert(toast.message, toast.type || 'success', toast.timeout ?? 2000);
       navigate('.', { replace: true, state: {} });
     }
-    return () => { if (alertTimer.current) clearTimeout(alertTimer.current); };
+    return () => {
+      if (alertTimer.current) clearTimeout(alertTimer.current);
+    };
   }, [location.state, navigate]);
 
-  const getStep1Result = () => {
-    const mcv = parseFloat(step1MCV);
-    const mch = parseFloat(step1MCH);
-    const dcip = step1DCIP
-    if (mcv >= 80 && mch >= 27 && dcip === "negative") {
-      setStep1Result({
-        type: 'normal',
-        title: 'ปกติ - ไม่เสี่ยงต่อธาลัสซีเมีย',
-        details: [
-          'ไม่เป็นธาลัสซีเมีย หรือ ไม่เป็นธาลัสซีเมียชนิดรุนแรง '
-        ],
-        advice: 'ไม่จำเป็นต้องตรวจเพิ่มเติม และไม่มีความจำเป็นต้องทราบผลตรวจคัดกรองธาลัสซีเมียของสามี'
-      });
-      setShowNextForm(false);
-    } 
-    else if ((mcv < 80 || mch < 27) && dcip === "negative"){
-     setStep1Result({
-        type: 'unnormal',
-        title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
-        details: [
-          '- อาจมี α thalassemia และหรือ β -thalassemia โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2',
-          '- ส่วน β –thalassemia มีโอกาสเป็นได้ทั้ง  β⁰ -thalassemia และ β⁺ -thalassemia',
-          '- ไม่มี Hb E'
-        ],
-        advice: 'พิจารณาผลเลือดของสามี'
-      }) 
-      setShowNextForm(true);
-    }
-    else if (mcv >= 80 && mch >= 27 && dcip === "positive") {
-      setStep1Result({
-              type: 'unnormal',
-              title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
-              details: [
-                '- ไม่มี α thalassemia และหรือ β -thalassemia',
-                '- มี Hb E'
-              ],
-              advice: 'พิจารณาผลเลือดของสามี'
-            })
-      setShowNextForm(true);
-    }
-    else if ((mcv < 80 || mch < 27) && dcip === "positive") {
-      setStep1Result({
-              type: 'unnormal',
-              title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
-              details: [
-          '- อาจมี α thalassemia และหรือ β -thalassemia โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2',
-          '- ส่วน β –thalassemia มีโอกาสเป็นได้ทั้ง  β⁰ -thalassemia และ β⁺ -thalassemia',
-          '- มี Hb E'
-              ],
-              advice: 'พิจารณาผลเลือดของสามี'
-            })
-      setShowNextForm(true);     
-    }
-    else {
-      setStep1Result(null); // เคลียร์ผลลัพธ์ถ้าเงื่อนไขไม่ตรง
-      setShowNextForm(false); // ไม่แสดงฟอร์มเพิ่ม
-    }
-  };
+async function saveStep1(user, form, result) {
+  if (!user?.id) return;
 
-  const getStep2Result = () => {
-    const mcv = parseFloat(step2MCV);
-    const mch = parseFloat(step2MCH);
-    const dcip = step2DCIP
-    if (mcv >= 80 && mch >= 27 && dcip === "negative") {
-      setStep2Result({
-        type: 'normal',
-        title: 'ปกติ - ไม่เสี่ยงต่อธาลัสซีเมีย',
-        details: [
-          '- สามีไม่เป็นธาลัสซีเมีย หรือ ไม่เป็นธาลัสซีเมียชนิดรุนแรง ','- ทารกในครรภ์ไม่มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
-        ],
-        advice: 'ไม่มีความจำเป็นต้องตรวจเพิ่มเติม'
-      });
-    } 
-    else if ((mcv < 80 || mch < 27) && dcip === "negative"){
-     setStep2Result({
-        type: 'unnormal',
-        title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
-        details: [
-          '- ผลเลือดของสามีอาจมี α thalassemia และหรือ β -thalassemia  โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2 ',
-          '- ส่วน β -thalassemiaมีโอกาสเป็นได้ทั้ง  β⁰ -thalassemia และ β⁺ -thalassemia','- สามีไม่มี Hb E','- ทารกในครรภ์มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
-        ],
-        advice: 'ส่งตรวจ Hb typing เพิ่มเติมทั้งหญิงตั้งครรภ์และสามีหญิงตั้งครรภ์'
-      }) 
-    }
-    else if (mcv >= 80 && mch >= 27 && dcip === "positive") {
-      setStep2Result({
-              type: 'unnormal',
-              title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
-              details: [
-                '- สามีไม่มี α thalassemia และ β -thalassemia แต่มี Hb E','- ทารกในครรภ์มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
-              ],
-              advice: 'ส่งตรวจ Hb typing เพิ่มเติมทั้งหญิงตั้งครรภ์และสามีหญิงตั้งครรภ์'
-            })
-    }
-    else if ((mcv < 80 || mch < 27) && dcip === "positive") {
-      setStep2Result({
-              type: 'unnormal',
-              title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
-              details: [
-                '- ผลเลือดของสามีอาจมี α thalassemia และหรือ β -thalassemia  โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2','- ส่วน β -thalassemiaมีโอกาสเป็นได้ทั้ง  β⁰ -thalassemia และ β⁺ -thalassemia',
-                '- สามีมี Hb E','- ทารกในครรภ์มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
-              ],
-              advice: 'ส่งตรวจ Hb typing เพิ่มเติมทั้งหญิงตั้งครรภ์และสามีหญิงตั้งครรภ์'
-            })  
-    }
-    else {
-      setStep2Result(null); 
-    }
+  const userRef = doc(db, "User", user.id);
+  const sessionRef = await addDoc(collection(userRef, "TestResults"), {
+    status: result.type === "normal" ? "normal_only" : "awaiting_partner",
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+    patient: {
+      MCV: Number(form.MCV),
+      MCH: Number(form.MCH),
+      DCIP: String(form.DCIP || "").toLowerCase(), // normalize
+      result, // {type,title,details[],advice}
+    },
+  });
+
+  // จดจำ session
+  setSessionId(sessionRef.id);
+  try { localStorage.setItem("lastSessionId", sessionRef.id); } catch {}
+
+  // นับกดปุ่ม
+  await updateDoc(userRef, { CountPress: increment(1) });
+
+  return sessionRef.id;
+}
+
+const getStep1Result = async () => {
+  const mcv = parseFloat(step1MCV);
+  const mch = parseFloat(step1MCH);
+  const dcip = String(step1DCIP || "").toLowerCase();
+
+  let result = null;
+
+  if (mcv >= 80 && mch >= 27 && dcip === "negative") {
+    result = {
+      type: 'normal',
+      title: 'ปกติ - ไม่เสี่ยงต่อธาลัสซีเมีย',
+      details: ['ไม่เป็นธาลัสซีเมีย หรือ ไม่เป็นธาลัสซีเมียชนิดรุนแรง'],
+      advice: 'ไม่จำเป็นต้องตรวจเพิ่มเติม และไม่มีความจำเป็นต้องทราบผลตรวจคัดกรองธาลัสซีเมียของสามี'
+    };
+    setShowNextForm(false);
+  } else if ((mcv < 80 || mch < 27) && dcip === "negative") {
+    result = {
+      type: 'unnormal',
+      title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
+      details: [
+        '- อาจมี α thalassemia และหรือ β -thalassemia โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2',
+        '- ส่วน β –thalassemia มีโอกาสเป็นได้ทั้ง  β⁰ -thalassemia และ β⁺ -thalassemia',
+        '- ไม่มี Hb E'
+      ],
+      advice: 'พิจารณาผลเลือดของสามี'
+    };
+    setShowNextForm(true);
+  } else if (mcv >= 80 && mch >= 27 && dcip === "positive") {
+    result = {
+      type: 'unnormal',
+      title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
+      details: [
+        '- ไม่มี α thalassemia และหรือ β -thalassemia',
+        '- มี Hb E'
+      ],
+      advice: 'พิจารณาผลเลือดของสามี'
+    };
+    setShowNextForm(true);
+  } else if ((mcv < 80 || mch < 27) && dcip === "positive") {
+    result = {
+      type: 'unnormal',
+      title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
+      details: [
+        '- อาจมี α thalassemia และหรือ β -thalassemia โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2',
+        '- ส่วน β –thalassemia มีโอกาสเป็นได้ทั้ง  β⁰ -thalassemia และ β⁺ -thalassemia',
+        '- มี Hb E'
+      ],
+      advice: 'พิจารณาผลเลือดของสามี'
+    };
+    setShowNextForm(true);
+  } else {
+    setStep1Result(null);
+    setShowNextForm(false);
+    return;
+  }
+
+  // เซฟผลและเริ่ม session
+  setStep1Result(result);
+  await saveStep1(
+    user,
+    { MCV: step1MCV, MCH: step1MCH, DCIP: dcip },
+    result
+  );
+};
+
+async function saveStep2(user, sessionId, form, result, finalSummary) {
+  if (!user?.id || !sessionId) return;
+
+  const sessionDoc = doc(db, "User", user.id, "TestResults", sessionId);
+  await updateDoc(sessionDoc, {
+    status: "completed",
+    updatedAt: serverTimestamp(),
+    partner: {
+      MCV: Number(form.MCV),
+      MCH: Number(form.MCH),
+      DCIP: String(form.DCIP || "").toLowerCase(),
+      result,
+    },
+    finalSummary: finalSummary || result,
+  });
+}
+
+
+const getStep2Result = async () => {
+  const mcv = parseFloat(step2MCV);
+  const mch = parseFloat(step2MCH);
+  const dcip = String(step2DCIP || "").toLowerCase();
+
+  let result = null;
+
+  if (mcv >= 80 && mch >= 27 && dcip === "negative") {
+    result = {
+      type: 'normal',
+      title: 'ปกติ - ไม่เสี่ยงต่อธาลัสซีเมีย',
+      details: [
+        '- สามีไม่เป็นธาลัสซีเมีย หรือ ไม่เป็นธาลัสซีเมียชนิดรุนแรง ',
+        '- ทารกในครรภ์ไม่มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
+      ],
+      advice: 'ไม่มีความจำเป็นต้องตรวจเพิ่มเติม'
+    };
+  } else if ((mcv < 80 || mch < 27) && dcip === "negative") {
+    result = {
+      type: 'unnormal',
+      title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
+      details: [
+        '- ผลเลือดของสามีอาจมี α thalassemia และหรือ β -thalassemia  โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2 ',
+        '- ส่วน β -thalassemiaมีโอกาสเป็นได้ทั้ง  β⁰ -thalassemia และ β⁺ -thalassemia',
+        '- สามีไม่มี Hb E',
+        '- ทารกในครรภ์มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
+      ],
+      advice: 'ส่งตรวจ Hb typing เพิ่มเติมทั้งหญิงตั้งครรภ์และสามีหญิงตั้งครรภ์'
+    };
+  } else if (mcv >= 80 && mch >= 27 && dcip === "positive") {
+    result = {
+      type: 'unnormal',
+      title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
+      details: [
+        '- สามีไม่มี α thalassemia และ β -thalassemia แต่มี Hb E',
+        '- ทารกในครรภ์มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
+      ],
+      advice: 'ส่งตรวจ Hb typing เพิ่มเติมทั้งหญิงตั้งครรภ์และสามีหญิงตั้งครรภ์'
+    };
+  } else if ((mcv < 80 || mch < 27) && dcip === "positive") {
+    result = {
+      type: 'unnormal',
+      title: 'มีความเสี่ยงต่อธาลัสซีเมีย',
+      details: [
+        '- ผลเลือดของสามีอาจมี α thalassemia และหรือ β -thalassemia  โดย α thalassemia มีโอกาสเป็นได้ทั้ง α -thalassemia 1 และ α -thalassemia 2',
+        '- ส่วน β -thalassemiaมีโอกาสเป็นได้ทั้ง  β⁰ -thalassemia และ β⁺ -thalassemia',
+        '- สามีมี Hb E',
+        '- ทารกในครรภ์มีความเสี่ยงในการเกิดโรคเลือดจางธาลัสซีเมียชนิดรุนแรง'
+      ],
+      advice: 'ส่งตรวจ Hb typing เพิ่มเติมทั้งหญิงตั้งครรภ์และสามีหญิงตั้งครรภ์'
+    };
+  } else {
+    setStep2Result(null);
+    return;
+  }
+
+  // อัปเดต UI
+  setStep2Result(result);
+
+  // หา sessionId (จาก state หรือ localStorage เผื่อรีเฟรช)
+  let sid = sessionId;
+  if (!sid) {
+    try {
+      sid = localStorage.getItem("lastSessionId") || "";
+    } catch {}
+  }
+  if (!sid) {
+    // แจ้งผู้ใช้ให้ทำ Step1 ใหม่ ถ้าไม่มี session
+    showAlert?.("ไม่พบรหัสเคส กรุณาวิเคราะห์หญิงตั้งครรภ์ (Step 1) ใหม่", "error", 2500);
+    return;
+  }
+
+  // สร้างสรุปสุดท้ายถ้าต้องการรวมผลสองฝั่ง (optional)
+  const finalSummary = makeFinalSummary?.(step1Result, result);
+
+  // เซฟลง Firestore
+  await saveStep2(user, sid, { MCV: step2MCV, MCH: step2MCH, DCIP: dcip }, result, finalSummary);
+};
+
+function makeFinalSummary(step1, step2) {
+  if (!step1 || !step2) return null;
+
+  // ถ้าทั้งคู่ปกติ
+  if (step1.type === "normal" && step2.type === "normal") {
+    return {
+      type: "normal",
+      title: "คู่สมรสทั้งสองปกติ",
+      details: ["ทั้งหญิงตั้งครรภ์และสามีไม่มีความเสี่ยงต่อธาลัสซีเมีย"],
+      advice: "ไม่จำเป็นต้องตรวจเพิ่มเติม"
+    };
+  }
+
+  // ถ้าฝ่ายใดฝ่ายหนึ่งเสี่ยง
+  return {
+    type: "unnormal",
+    title: "พบความเสี่ยงต่อธาลัสซีเมีย",
+    details: [
+      "หญิงตั้งครรภ์หรือสามีมีผลเลือดบ่งชี้ว่ามีความเสี่ยงต่อธาลัสซีเมีย",
+      "ทารกในครรภ์อาจมีความเสี่ยงต่อการเกิดโรคธาลัสซีเมียชนิดรุนแรง"
+    ],
+    advice: "ควรส่งตรวจ Hb typing หรือการวิเคราะห์ DNA เพิ่มเติมทั้งสองฝ่าย"
   };
+}
+
 
 const isStep1Disabled = step1MCV === '' || step1MCH === '' || !step1DCIP;
 const disabledBtn = 'bg-gradient-to-r from-gray-300 to-gray-300 text-white shadow-none cursor-not-allowed pointer-events-none';
@@ -160,7 +297,7 @@ const activeBtn   = 'bg-gradient-to-r from-green-500 to-emerald-600 text-white h
 const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
   return (
  <div className="font-kanit bg-white max-w-full">
-        <Navbar /> 
+        <Navbar user={user}/> 
         {/* <div className="bg-emerald-50 text-emerald-800 text-center py-2 font-semibold border-b border-emerald-200">
   คุณกำลังอยู่ใน <span className="text-emerald-600">ระดับที่ 1</span>
 </div> */}

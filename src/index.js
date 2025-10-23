@@ -6,8 +6,10 @@ import ThalassemiaScreening from './App';
 import Blood from './Blood';
 import Login from './Login';
 import AdminUsers from './Admin';
+import ImportHospitals from './Upload';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Profile from './Profile';
 import { createRoot } from 'react-dom/client';
 
 createRoot(document.getElementById('root')).render(
@@ -17,6 +19,8 @@ createRoot(document.getElementById('root')).render(
       <Route path="/Blood" element={<Blood />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/Admin" element={<AdminUsers />} />
+      <Route path="/Upload" element={<ImportHospitals />} />
+      <Route path="/Profile" element={<Profile />} />
       <Route path="/ThalassemiaScreening" element={<ThalassemiaScreening />} />
     </Routes>
   </BrowserRouter>

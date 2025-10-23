@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { CheckCircle, AlertCircle, FileText, Activity } from 'lucide-react';
 import Lru from './Img/colormag-logolru-11.png';
 import Hp from './Img/loeih-logo_.png';
 import Dr from './Img/image 1.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import People from './Img/peole.png';
 import Footer from './Footer';
+// --- Firebase ---
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getFirestore, collection, onSnapshot, doc, updateDoc,addDoc,increment,serverTimestamp } from "firebase/firestore";
+
+// ถ้ามี firebaseConfig อยู่ไฟล์อื่น ให้ import มาแทนบรรทัดนี้
+// import { firebaseConfig } from "@/firebaseConfig";
 const screeningRules = {
   A2A_low: {
     label: 'A₂A (Hb A₂ ≤ 3.5%)',
@@ -805,24 +811,59 @@ const RISK_MAP = {
 const getRiskUI = (level) => RISK_MAP[level] || RISK_MAP.moderate_risk;
 
 
+const firebaseConfig = {
+  apiKey: "AIzaSyAyXiH4tR_fNFxiLJX62OFo92T0f9Zv3Qw",
+  authDomain: "hp-project-b5b21.firebaseapp.com",
+  projectId: "hp-project-b5b21",
+  storageBucket: "hp-project-b5b21.firebasestorage.app",
+  messagingSenderId: "672851387793",
+  appId: "1:672851387793:web:8f09499b9a68391ed6a630",
+  measurementId: "G-BNV4F6E4P0",
+};
+
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 const Blood = () => {
   const navigate = useNavigate();
   const [pregnantWomanHb, setPregnantWomanHb] = useState('');
   const [husbandHb, setHusbandHb] = useState('');
   const [result, setResult] = useState(null);
+  const [user, setUser] = useState(null);
+  const location = useLocation();
+  useEffect(() => {
+  const u = location.state?.user || JSON.parse(localStorage.getItem("user") || "null");
+  setUser(u);
+}, [location.state]);
 
-  const handleSubmit = () => {
-    if (!pregnantWomanHb || !husbandHb) {
-      alert('กรุณาเลือกผลการตรวจของทั้งสองคน');
-      return;
-    }
+const handleSubmit = async () => {
+  if (!pregnantWomanHb || !husbandHb) {
+    alert('กรุณาเลือกผลการตรวจของทั้งสองคน');
+    return;
+  }
+  if (!user?.id) {
+    alert('ยังไม่มีข้อมูลผู้ใช้งาน'); // กัน null
+    return;
+  }
+
+  try {
     const screening = getScreeningResult(pregnantWomanHb, husbandHb);
+
     setResult({
       woman: screeningRules[pregnantWomanHb],
       husband: screeningRules[husbandHb],
       screening,
     });
-  };
+
+    await saveToTestResults2(user, pregnantWomanHb, husbandHb, screening);
+    // showAlert?.("บันทึกผลระดับที่ 2 เรียบร้อย", "success");
+  } catch (e) {
+    console.error(e);
+    alert(`บันทึกไม่สำเร็จ: ${e.message || e}`);
+  }
+};
+
+
 
   const handleReset = () => {
     setPregnantWomanHb('');
@@ -831,6 +872,55 @@ const Blood = () => {
   };
 
   const riskUI = result ? getRiskUI(result.screening.risk) : null;
+async function saveToTestResults2(user, pregnantWomanHb, husbandHb, screening) {
+  if (!user?.id) throw new Error("ไม่พบข้อมูลผู้ใช้ (user.id)");
+
+  const userRef = doc(db, "User", user.id); // ชื่อคอลเลกชันต้องตรง: "User"
+
+  const payload = {
+    type: "hbtyping",
+    status: "completed",
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+    couple: {
+      womanKey: pregnantWomanHb,
+      husbandKey: husbandHb,
+      woman: {
+        label: screeningRules[pregnantWomanHb]?.label,
+        description: screeningRules[pregnantWomanHb]?.description,
+      },
+      husband: {
+        label: screeningRules[husbandHb]?.label,
+        description: screeningRules[husbandHb]?.description,
+      },
+    },
+    screening,
+    finalSummary: {
+      title:
+        screening.risk === "no_risk"
+          ? "ไม่มีความเสี่ยงต่อธาลัสซีเมียรุนแรง"
+          : screening.risk === "high_risk"
+          ? "มีความเสี่ยงสูงต่อธาลัสซีเมียรุนแรง"
+          : "มีความเสี่ยงต่อธาลัสซีเมีย",
+      details: Array.isArray(screening.details) ? screening.details : [screening.details],
+      advice: screening.advice || "",
+    },
+  };
+
+  try {
+    const colRef = collection(userRef, "TestResults2");
+    const docRef = await addDoc(colRef, payload);
+    console.log("✅ บันทึก TestResults2 แล้ว:", docRef.path); // e.g. User/abc123/TestResults2/xyz
+  } catch (err) {
+    console.error("❌ บันทึก TestResults2 ไม่สำเร็จ:", err);
+    throw err;
+  }
+
+  await updateDoc(userRef, { CountPress: increment(1) });
+}
+
+
+
 
   return (
     <div className="font-kanit mx-auto bg-white">
