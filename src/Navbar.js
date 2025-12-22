@@ -18,8 +18,7 @@ const Navbar = ({ user: userProp }) => {
 
   const handleLogout = () => {
     setOpen(false);
-    // ✅ ตัวอย่างล้าง token/session
-    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     navigate("/login");
   };
 
@@ -54,6 +53,10 @@ const Navbar = ({ user: userProp }) => {
     { label: "ระดับที่ 2", icon: <Droplet className="w-4 h-4" />, path: "/Blood" },
     { label: "Admin", icon: <UserCircle className="w-4 h-4" />, path: "/Admin" },
   ];
+  const visibleSteps = user
+  ? steps
+  : steps.filter(step => step.label !== "Admin");
+
   const handleProfileClick = () => {
     navigate("/profile", {
       state: {
@@ -79,49 +82,54 @@ if (location.pathname === '/ThalassemiaScreening') {
 
   return (
     <nav className="sticky top-0 z-50 bg-gradient-to-r from-emerald-600 to-cyan-600 shadow-lg w-full">
-      <div className="flex justify-between items-center h-16 px-5 sm:px-7 lg:px-11">
-        
-        <div 
-          className="flex items-center gap-3 sm:gap-4 cursor-pointer"
-          onClick={() => navigate('/ThalassemiaScreening')}
-        >
-          {/* โลโก้ 1 */}
-          <div className="p-1.5 bg-white rounded-xl shadow-sm">
-            <img src={Hp} alt="HP" className="h-9 sm:h-8 w-auto" />
-          </div>
+<div className="flex items-center h-16 px-3 sm:px-5 lg:px-8 gap-3">
 
-          {/* โลโก้ 2 */}
-          <div className="p-1 bg-white rounded-xl hidden sm:flex">
-            <img src={Lru} alt="LRU" className="h-9 w-auto" />
-          </div>
+        
+<div
+  className="flex items-center gap-3 sm:gap-4 cursor-pointer min-w-0 flex-1"
+  onClick={() => navigate('/ThalassemiaScreening')}
+>
+
+            {/* โลโก้ 1 */}
+            <div className="p-1 bg-white rounded-lg shadow-sm">
+              <img src={Hp} alt="HP" className="h-7 sm:h-8 w-auto" />
+            </div>
+
+            {/* โลโก้ 2 */}
+            <div className="p-1 bg-white rounded-lg hidden sm:flex">
+              <img src={Lru} alt="LRU" className="h-7 w-auto" />
+            </div>
+
 
           {/* ชื่อระบบ */}
           <div className="flex flex-col leading-tight">
             <div className="flex items-center gap-2">
+
           
-                <span
-                className="px-4 py-1.5 rounded-full 
-                            bg-white/20 backdrop-blur-sm 
-                            font-extrabold text-lg sm:text-xl 
-                            border border-white/30 shadow-md hover:bg-white/30 transition flex
-                            tracking-wide"
-                >
-                <span
-                    className="bg-gradient-to-r from-yellow-200 via-white to-cyan-100 
-                            bg-clip-text text-transparent 
-                            drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]"
-                >
-                    ThalLoei Trial Version 1.0
-                </span>
+<span
+  className="px-3 py-1 rounded-full 
+             bg-white/20 backdrop-blur-sm 
+             font-bold text-sm sm:text-base lg:text-lg
+             border border-white/30 shadow-md 
+             flex items-center gap-2 min-w-0"
+>
+  <span
+    className="bg-gradient-to-r from-yellow-200 via-white to-cyan-100 
+               bg-clip-text text-transparent 
+               truncate max-w-[160px] sm:max-w-[220px] lg:max-w-none"
+  >
+    ThalLoei Trial Version 1.0
+  </span>
+
  {levelText && (
     <span
-      className={`ml-3 px-3 py-1 text-sm font-semibold rounded-full border shadow-sm ${
-        levelText === 'ระดับที่ 1'
-          ? 'bg-emerald-500/30 border-emerald-400 text-white'
-          : levelText === 'ระดับที่ 2'
-          ? 'bg-cyan-500/30 border-cyan-400 text-white'
-          : 'bg-yellow-500/30 border-yellow-400 text-white'
-      }`}
+      className={`ml-2 px-2 py-0.5 text-xs font-semibold rounded-full border ${
+          levelText === 'ระดับที่ 1'
+            ? 'bg-emerald-500/30 border-emerald-400 text-white'
+            : levelText === 'ระดับที่ 2'
+            ? 'bg-cyan-500/30 border-cyan-400 text-white'
+            : 'bg-yellow-500/30 border-yellow-400 text-white'
+        }`}
     >
       {levelText}
     </span>
@@ -135,13 +143,14 @@ if (location.pathname === '/ThalassemiaScreening') {
 
         {/* ✅ Right: Step Buttons (Desktop) */}
   <div className="hidden md:flex items-center gap-3 sm:gap-4">
-      {steps.map((step, i) => (
+      {visibleSteps.map((step, i) => (
         <button
           key={i}
           onClick={() => handleNavigate(step.path)}
-          className="flex items-center gap-2 px-5 py-2 rounded-lg font-semibold text-white 
-                     hover:bg-white/20 transition-all duration-300 
-                     border border-white/20 hover:border-white/40 hover:scale-105"
+  className="flex items-center gap-2 px-3 py-1.5 rounded-lg   
+             font-medium text-sm text-white 
+             hover:bg-white/20 transition-all 
+             border border-white/20 whitespace-nowrap"
         >
           {step.icon}
           {step.label}

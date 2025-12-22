@@ -842,8 +842,11 @@ const handleSubmit = async () => {
     return;
   }
   if (!user?.id) {
-    alert('ยังไม่มีข้อมูลผู้ใช้งาน'); // กัน null
-    return;
+    setResult({
+      woman: screeningRules[pregnantWomanHb],
+      husband: screeningRules[husbandHb],
+  
+    });
   }
 
   try {
@@ -859,7 +862,7 @@ const handleSubmit = async () => {
     // showAlert?.("บันทึกผลระดับที่ 2 เรียบร้อย", "success");
   } catch (e) {
     console.error(e);
-    alert(`บันทึกไม่สำเร็จ: ${e.message || e}`);
+    // alert(`บันทึกไม่สำเร็จ: ${e.message || e}`);
   }
 };
 
