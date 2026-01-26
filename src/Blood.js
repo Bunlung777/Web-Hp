@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useRef } from 'react';
 import { CheckCircle, AlertCircle, FileText, Activity } from 'lucide-react';
 import Lru from './Img/colormag-logolru-11.png';
 import Hp from './Img/loeih-logo_.png';
@@ -10,7 +10,7 @@ import Footer from './Footer';
 // --- Firebase ---
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore, collection, onSnapshot, doc, updateDoc,addDoc,increment,serverTimestamp } from "firebase/firestore";
-
+import { useReactToPrint } from 'react-to-print';
 // ถ้ามี firebaseConfig อยู่ไฟล์อื่น ให้ import มาแทนบรรทัดนี้
 // import { firebaseConfig } from "@/firebaseConfig";
 const screeningRules = {
@@ -831,6 +831,11 @@ const Blood = () => {
   const [result, setResult] = useState(null);
   const [user, setUser] = useState(null);
   const location = useLocation();
+  const contentRef = useRef(null);
+  const handlePrint = useReactToPrint({
+      contentRef,
+      documentTitle: "ผลตรวจเลือด",
+    });
   useEffect(() => {
   const u = location.state?.user || JSON.parse(localStorage.getItem("user") || "null");
   setUser(u);
@@ -913,9 +918,9 @@ async function saveToTestResults2(user, pregnantWomanHb, husbandHb, screening) {
   try {
     const colRef = collection(userRef, "TestResults2");
     const docRef = await addDoc(colRef, payload);
-    console.log("✅ บันทึก TestResults2 แล้ว:", docRef.path); // e.g. User/abc123/TestResults2/xyz
+    console.log("บันทึก TestResults2 แล้ว:", docRef.path); // e.g. User/abc123/TestResults2/xyz
   } catch (err) {
-    console.error("❌ บันทึก TestResults2 ไม่สำเร็จ:", err);
+    console.error("บันทึก TestResults2 ไม่สำเร็จ:", err);
     throw err;
   }
 
@@ -931,6 +936,7 @@ async function saveToTestResults2(user, pregnantWomanHb, husbandHb, screening) {
 
       {/* Step 1 and Step 2 Forms */}
       <div className="p-4 max-w-7xl mx-auto">
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-12">
           {/* Step 1 */}
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 overflow-hidden">
@@ -982,7 +988,9 @@ async function saveToTestResults2(user, pregnantWomanHb, husbandHb, screening) {
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 overflow-hidden">
             <div className="bg-gradient-to-r from-emerald-500 to-cyan-600 p-4 sm:p-6">
               <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white flex items-center">
-                <FileText className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
+                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white/20 rounded-full flex items-center justify-center mr-2 sm:mr-3">
+                  <span className="text-white font-bold text-sm sm:text-2xl">2</span>
+                </div>
                 ผลเลือดสามี
               </h2>
             </div>
@@ -1020,9 +1028,8 @@ async function saveToTestResults2(user, pregnantWomanHb, husbandHb, screening) {
                 </div>
               </div>
             </div>
-          </div>
         </div>
-
+</div>
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
           <button
@@ -1031,10 +1038,10 @@ async function saveToTestResults2(user, pregnantWomanHb, husbandHb, screening) {
             className="w-full sm:w-[200px] bg-gradient-to-r from-emerald-500 to-green-600 text-white py-3 px-6 rounded-xl hover:from-emerald-600 hover:to-green-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-md"
           >
             วิเคราะห์ผลลัพธ์
-          </button>
+          </button>          
         </div>
-
         {/* Results Section */}
+        <div ref={contentRef}>
         <div className="bg-white rounded-2xl shadow-xl border overflow-hidden">
           <div className="bg-gradient-to-r from-emerald-500 to-cyan-600 p-6">
             <h2 className="text-[20px] font-bold text-white flex items-center">
@@ -1095,6 +1102,7 @@ async function saveToTestResults2(user, pregnantWomanHb, husbandHb, screening) {
                   </div>
                 </div>
               </div>
+
             ) : (
               <div className="text-center text-gray-500 py-12">
                 <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -1104,7 +1112,8 @@ async function saveToTestResults2(user, pregnantWomanHb, husbandHb, screening) {
               </div>
             )}
           </div>
-
+          </div>
+          </div>
           {/* Reset Button */}
           <div className="text-center mt-8 mb-12">
             <button
@@ -1114,7 +1123,15 @@ async function saveToTestResults2(user, pregnantWomanHb, husbandHb, screening) {
               เริ่มใหม่
             </button>
           </div>
-        </div>
+                    <div className='text-center mb-12 px-4'>
+          <button
+                onClick={handlePrint}
+                disabled={!pregnantWomanHb || !husbandHb}
+            className="w-full sm:w-[200px] bg-gradient-to-r from-emerald-500 to-green-600 text-white py-3 px-6 rounded-xl hover:from-emerald-600 hover:to-green-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-md"
+              >
+                Export PDF
+              </button>
+          </div>
       </div>
         <Footer/>
     </div>

@@ -1,20 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { CheckCircle, AlertCircle , FileText , Activity,X} from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Lru from './Img/colormag-logolru-11.png';
-import Hp from './Img/loeih-logo_.png';
 import Dr from './Img/image 1.png';
-import People from './Img/peole.png';
-import Napat from './Img/0001 (3).jpg'
-import Supailin from './Img/Supailin.jpg'
-import Doctor from './Img/Doctor.jpg'
-import Te1 from './Img/Te1.jpg'
-import Te2 from './Img/Te2.jpg'
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { doc, collection, addDoc, updateDoc, increment, serverTimestamp,getFirestore } from "firebase/firestore";
-
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import { useReactToPrint } from 'react-to-print';
 // ถ้ามี firebaseConfig อยู่ไฟล์อื่น ให้ import มาแทนบรรทัดนี้
 // import { firebaseConfig } from "@/firebaseConfig";
 const firebaseConfig = {
@@ -46,11 +40,17 @@ const ThalassemiaScreening = () => {
   const alertTimer = useRef(null);
   const [alert, setAlert] = useState({ show: false, message: '', type: 'success' }); // 'success' | 'error'
   const [sessionId, setSessionId] = useState(null);
+  const contentRef = useRef(null);
+  const handlePrint = useReactToPrint({
+    contentRef,
+    documentTitle: "ผลตรวจเลือด",
+  });
+
 
   useEffect(() => {
     if (location.state?.user) {
       setUser(location.state.user);
-      console.log("✅ รับข้อมูล user:", location.state.user);
+      console.log("รับข้อมูล user:", location.state.user);
     }
   }, [location.state]);
 
@@ -252,13 +252,13 @@ const getStep2Result = async () => {
       sid = localStorage.getItem("lastSessionId") || "";
     } catch {}
   }
-  if (!sid) {
-    // แจ้งผู้ใช้ให้ทำ Step1 ใหม่ ถ้าไม่มี session
-    showAlert?.("ไม่พบรหัสเคส กรุณาวิเคราะห์หญิงตั้งครรภ์ (Step 1) ใหม่", "error", 2500);
-    return;
-  }
+  // if (!sid) {
+  //   // แจ้งผู้ใช้ให้ทำ Step1 ใหม่ ถ้าไม่มี session
+  //   showAlert?.("ไม่พบรหัสเคส กรุณาวิเคราะห์หญิงตั้งครรภ์ (Step 1) ใหม่", "error", 2500);
+  //   return;
+  // }
 
-  // สร้างสรุปสุดท้ายถ้าต้องการรวมผลสองฝั่ง (optional)
+  // สร้างสรุปสุดท้ายถ้าต้องการรวมผลสองฝั่ง 
   const finalSummary = makeFinalSummary?.(step1Result, result);
 
   // เซฟลง Firestore
@@ -296,7 +296,7 @@ const disabledBtn = 'bg-gradient-to-r from-gray-300 to-gray-300 text-white shado
 const activeBtn   = 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5';
 const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
   return (
- <div className="font-kanit bg-white max-w-full">
+ <div className="font-kanit bg-white max-w-full min-h-screen">
         <Navbar user={user}/> 
         {/* <div className="bg-emerald-50 text-emerald-800 text-center py-2 font-semibold border-b border-emerald-200">
   คุณกำลังอยู่ใน <span className="text-emerald-600">ระดับที่ 1</span>
@@ -391,7 +391,8 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
         </div>
       </div> */}
 
-  {/* Step 1 */}
+  {/* Step 1 */}        
+  <div ref={contentRef}>
 <div className="p-4 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-12">
         {/* Step 1 Form */}
@@ -502,6 +503,7 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
           </div>
 
         {/* Step 1 Result */}
+
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 overflow-hidden">
           <div className="bg-gradient-to-r from-emerald-500 to-cyan-600 p-4 sm:p-6">
             <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white flex items-center">
@@ -572,8 +574,9 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
             )}
           </div>
         </div>
+        </div>
       </div>
-    </div>
+
 
   {/* Step 2 */}
   {showNextForm && (
@@ -760,13 +763,14 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
       </div>
     </div>
   )}
+      </div>
     {/* Next Button */}
 {step2Result ? (
   <div>
-    <div className="text-center mb-12">
+    <div className="text-center mb-12 px-4">
       <button
         onClick={() => navigate('/Blood')}
-        className="w-[300px] bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 px-8 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+        className="w-full max-w-[320px] sm:w-[300px] mx-auto bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 px-8 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
       >
         ขั้นตอนต่อไป
       </button>
@@ -774,7 +778,7 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
   </div>
 ) : null}
   {/* Reset Button */}
-  <div className="text-center mb-12">
+  <div className="text-center mb-12 px-4">
     <button
               onClick={() => {
           setStep1MCV('');
@@ -787,11 +791,22 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
           setStep2Result(null);     
           setShowNextForm(false);  
         }}
-      className="w-[300px] bg-gradient-to-r from-gray-500 to-gray-600 text-white py-3 px-8 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+      className="w-full max-w-[320px] sm:w-[300px] mx-auto bg-gradient-to-r from-gray-500 to-gray-600 text-white py-3 px-8 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
     >
       เริ่มใหม่
     </button>
   </div>
+  <div className='text-center mb-12 px-4'>
+  <button
+        onClick={handlePrint}
+        disabled={isStep1Disabled || isStep2Disabled}
+            className="w-full sm:w-[200px] bg-gradient-to-r from-emerald-500 to-green-600 text-white py-3 px-6 rounded-xl hover:from-emerald-600 hover:to-green-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-md"
+      >
+        Export PDF
+      </button>
+  </div>
+
+
 
         {/* Reference Guide */}
  <div className="flex items-center justify-center p-4">

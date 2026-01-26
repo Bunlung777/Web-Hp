@@ -140,8 +140,6 @@ if (location.pathname === '/ThalassemiaScreening') {
             </div>
           </div>
         </div>
-
-        {/* ✅ Right: Step Buttons (Desktop) */}
   <div className="hidden md:flex items-center gap-3 sm:gap-4">
       {visibleSteps.map((step, i) => (
         <button
@@ -206,9 +204,6 @@ if (location.pathname === '/ThalassemiaScreening') {
     </div>
     </div>
   
-
-
-        {/* ✅ Mobile Menu Button */}
         <button
           className="md:hidden text-white hover:text-gray-200"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -217,7 +212,6 @@ if (location.pathname === '/ThalassemiaScreening') {
         </button>
       </div>
 
-      {/* ✅ Mobile Dropdown */}
       {menuOpen && (
         <div className="md:hidden bg-gradient-to-b from-emerald-600 to-cyan-600 border-t border-white/20 shadow-lg">
           <div className="flex flex-col items-center py-3 space-y-3">

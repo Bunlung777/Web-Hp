@@ -83,7 +83,7 @@ const closeResultDetail = () => {
   setDetail({ open: false, loading: false, error: null, data: null });
   setDetailSessionId(null);
 };
-  // -------- Alert --------
+  //Alert 
   const [alert, setAlert] = useState({ show: false, message: "", type: "success" });
   const alertTimer = useRef(null);
   const showAlert = (message, type = "success", timeout = 2200) => {
@@ -93,7 +93,7 @@ const closeResultDetail = () => {
   };
   useEffect(() => () => alertTimer.current && clearTimeout(alertTimer.current), []);
 
-  // -------- Firestore realtime data --------
+  // Firestore realtime data
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const unsub = onSnapshot(collection(db, USERS_COL), (snap) => {
@@ -103,7 +103,7 @@ const closeResultDetail = () => {
     return () => unsub();
   }, []);
 
-  // -------- Search & Sort --------
+  // Search & Sort 
   const [querys, setQuerys] = useState("");
   const [sortBy, setSortBy] = useState({ key: "UserName", dir: "asc" });
 
@@ -133,7 +133,7 @@ const closeResultDetail = () => {
   const toggleSort = (key) =>
     setSortBy((s) => (s.key === key ? { key, dir: s.dir === "asc" ? "desc" : "asc" } : { key, dir: "asc" }));
 
-  // -------- Modal & form --------
+  // Modal & form
   const [modal, setModal] = useState({ open: false, mode: null, payload: null });
   const openAdd = () => setModal({ open: true, mode: "add", payload: null });
   const openEdit = (user) => setModal({ open: true, mode: "edit", payload: { ...user } });
@@ -157,7 +157,7 @@ useEffect(() => {
 
   const userRef = doc(db, "User", modal.payload.id);
 
-  // -------- ระดับที่ 1 (TestResults) --------
+  //  ระดับที่ 1 (TestResults) 
   setLoadingL1(true); setErrL1(null);
   const q1 = query(
     collection(userRef, "TestResults"),
@@ -178,7 +178,7 @@ useEffect(() => {
     setLoadingL1(false);
   }, (err) => { setErrL1(err.message || String(err)); setLoadingL1(false); });
 
-  // -------- ระดับที่ 2 (TestResults2) --------
+  //  ระดับที่ 2 (TestResults2) 
   setLoadingL2(true); setErrL2(null);
   const q2 = query(
     collection(userRef, "TestResults2"),
@@ -237,7 +237,7 @@ useEffect(() => {
     !!form.dh.district &&
     !!form.dh.hospitalName; // ต้องเลือกอำเภอ/โรงพยาบาลให้ครบ
 
-  // -------- CRUD --------
+  // CRUD 
   const onSave = async () => {
     if (!isValid) return showAlert("กรุณากรอกข้อมูลให้ครบถ้วน", "error");
 
@@ -412,7 +412,7 @@ useEffect(() => {
 
       {/* Body */}
       {modal.mode === "delete" ? (
-        /* ====== DELETE ====== */
+        /*DELETE */
         <div className="p-5 space-y-4">
           <p>
             ต้องการลบผู้ใช้ <span className="font-semibold">{modal.payload?.UserName}</span> ใช่หรือไม่?
@@ -423,7 +423,7 @@ useEffect(() => {
           </div>
         </div>
       ) : modal.mode === "results" ? (
-        /* ====== RESULTS (แท็บ L1/L2) ====== */
+        /* RESULTS (แท็บ L1/L2) */
         <div className="p-5 space-y-4">
           {/* Tabs */}
           <div className="flex gap-2">
@@ -545,7 +545,7 @@ useEffect(() => {
           </div>
         </div>
       ) : (
-        /* ====== ADD/EDIT ====== */
+        /* ADD/EDIT  */
         <div className="p-5 space-y-4">
           <DistrictHospitalSelect
             value={form.dh}

@@ -20,7 +20,6 @@ function getInitials(name = "?") {
 }
 const fmt = (d) => d ? d.toLocaleString("th-TH") : "-";
 
-/* --------------------- Page ---------------------- */
 export default function ProfilePage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -337,8 +336,6 @@ const closeResultDetail = () => setDetail({ open: false, loading: false, error: 
   );
 }
 
-/* --------------------- Sub-components --------------------- */
-
 function Header({ userDoc }) {
   const initials = getInitials(userDoc?.UserName || userDoc?.displayName || "?");
   return (
@@ -434,7 +431,6 @@ function BadgeStatus({ status }) {
   return <span className="px-2 py-0.5 rounded-full text-xs bg-gray-100 text-gray-700">{status}</span>;
 }
 
-/* ------------ Tables (History) ------------ */
 function HistoryL1({ loading, error, rows = [], onRowClick }) {
   if (loading) return <div className="text-gray-500">กำลังโหลดผลระดับที่ 1...</div>;
   if (error)   return <div className="text-red-600">เกิดข้อผิดพลาด: {error}</div>;
@@ -457,8 +453,8 @@ function HistoryL1({ loading, error, rows = [], onRowClick }) {
             return (
               <tr
                 key={r.id}
-                className="hover:bg-gray-50 cursor-pointer"  // ✅ รูปมือเมื่อชี้
-                onClick={() => onRowClick?.(r)}               // ✅ เปิด Modal
+                className="hover:bg-gray-50 cursor-pointer"  
+                onClick={() => onRowClick?.(r)}         
                 title="คลิกเพื่อดูรายละเอียด"
               >
                 <td className="px-4 py-2">{fmt(r.createdAt)}</td>

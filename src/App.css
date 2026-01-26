@@ -36,3 +36,29 @@
     transform: rotate(360deg);
   }
 }
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+
+  .print-result,
+  .print-result * {
+    visibility: visible !important;
+  }
+
+  .print-result {
+    display: block;
+    position: relative;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  body {
+    margin: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
