@@ -1,5 +1,5 @@
 import React, { useState,useEffect, useRef } from 'react';
-import { Menu, X, Activity, Droplet,UserCircle, LogOut, ChevronDown  } from 'lucide-react';
+import { Menu, X, Activity, Droplet,UserCircle, LogOut, ChevronDown,LogIn  } from 'lucide-react';
 import { useNavigate, useLocation  } from 'react-router-dom';
 import Hp from './Img/loeih-logo_.png';
 import Lru from './Img/colormag-logolru-11.png';
@@ -86,8 +86,8 @@ if (location.pathname === '/ThalassemiaScreening') {
 
         
 <div
-  className="flex items-center gap-3 sm:gap-4 cursor-pointer min-w-0 flex-1"
-  onClick={() => navigate('/ThalassemiaScreening')}
+  className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1"
+  // onClick={() => navigate('/ThalassemiaScreening')}
 >
 
             {/* โลโก้ 1 */}
@@ -199,7 +199,15 @@ if (location.pathname === '/ThalassemiaScreening') {
           )}
         </div>
       ) : (
-        <span className="text-white font-semibold text-base mb-2">Guest</span>
+        <button 
+          onClick={() => navigate('/Login')}
+         className="flex items-center gap-2 px-3 py-1.5 rounded-lg   
+             font-medium text-sm text-white 
+             hover:bg-white/20 transition-all 
+             border border-white/20 whitespace-nowrap">
+            <LogIn className="w-4 h-4" />
+            เข้าสู่ระบบ
+              </button>
       )}
     </div>
     </div>
