@@ -6,8 +6,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { doc, collection, addDoc, updateDoc, increment, serverTimestamp,getFirestore } from "firebase/firestore";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+import PrintTemplate from './PrintTemplate';
 import { useReactToPrint } from 'react-to-print';
 // ถ้ามี firebaseConfig อยู่ไฟล์อื่น ให้ import มาแทนบรรทัดนี้
 // import { firebaseConfig } from "@/firebaseConfig";
@@ -41,11 +40,15 @@ const ThalassemiaScreening = () => {
   const [alert, setAlert] = useState({ show: false, message: '', type: 'success' }); // 'success' | 'error'
   const [sessionId, setSessionId] = useState(null);
   const contentRef = useRef(null);
-  const handlePrint = useReactToPrint({
-    contentRef,
-    documentTitle: "ผลตรวจเลือด",
-  });
-
+  const printRef = useRef();
+const handlePrint = useReactToPrint({
+  contentRef: printRef, // ชี้ไปที่ Ref ของ PrintTemplate
+  documentTitle: "รายงานผลตรวจธาลัสซีเมีย",
+  pageStyle: `
+    @page { size: A4 portrait; margin: 15mm; }
+    @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+  `,
+});
 
   useEffect(() => {
     if (location.state?.user) {
@@ -431,11 +434,13 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
                     <label className="block text-sm font-medium text-gray-700 mb-1">MCV</label>
                     <div className="relative">
                       <input
-                        type="number"
-                        min={0}
-                        step="0.1"
-                        value={step1MCV}
-                        onChange={(e) => setStep1MCV(e.target.value)}
+                        type="text"
+                          inputMode="numeric"
+                          value={step1MCV}
+                          onChange={(e) => {
+                            const value = e.target.value.replace(/[^0-9.]/g, "");
+                            setStep1MCV(value);
+                          }}
                         placeholder="กรอกค่า MCV"
                         className="w-full h-12 rounded-xl border border-gray-300 bg-white/80 px-4 pr-16 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                       />
@@ -805,7 +810,23 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
         Export PDF
       </button>
   </div>
-
+<div style={{ display: "none" }}>
+      <PrintTemplate 
+        ref={printRef} 
+        data1={{ 
+          mcv: step1MCV, 
+          mch: step1MCH, 
+          dcip: step1DCIP, // ส่ง DCIP ไปด้วยเผื่อโชว์
+          result: step1Result 
+        }} 
+        data2={{ 
+          mcv: step2MCV, 
+          mch: step2MCH, 
+          dcip: step2DCIP,
+          result: step2Result 
+        }}
+      />
+    </div>
 
 
         {/* Reference Guide */}
