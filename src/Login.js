@@ -1,16 +1,11 @@
-// src/pages/LoginThemed.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Eye, EyeOff, User, Lock, Heart, Shield, CheckCircle, X, MapPin, Building2, ArrowRight
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-// --- Firebase ---
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore, collection, onSnapshot, doc, updateDoc } from "firebase/firestore";
-
-// ถ้ามี firebaseConfig อยู่ไฟล์อื่น ให้ import มาแทนบรรทัดนี้
-// import { firebaseConfig } from "@/firebaseConfig";
+import bcrypt from "bcryptjs";
 const firebaseConfig = {
   apiKey: "AIzaSyAyXiH4tR_fNFxiLJX62OFo92T0f9Zv3Qw",
   authDomain: "hp-project-b5b21.firebaseapp.com",
@@ -76,12 +71,13 @@ const LoginThemed = () => {
 
   const isSubmitDisabled = !selectedUser || !password || isLoading;
 
-  // ------- Actions -------
   const trySubmit = async () => {
     if (!selectedUser) return showAlert("กรุณาเลือกอำเภอและหน่วยบริการ", "error");
     if (!selectedUser.Active) return showAlert("บัญชีนี้ถูกปิดใช้งาน", "error");
-    if (String(password) !== String(selectedUser.Password || "")) return showAlert("รหัสผ่านไม่ถูกต้อง", "error");
-
+if (!bcrypt.compareSync(String(password), String(selectedUser.Password || ""))) {
+    return showAlert("รหัสผ่านไม่ถูกต้อง", "error");
+}
+localStorage.setItem("isLoggedIn", "true");
     try {
       setIsLoading(true);
       // เพิ่ม Count (จำนวนครั้งเข้าใช้)

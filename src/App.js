@@ -307,7 +307,7 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
   <div className="fixed top-0 inset-x-0 z-50 flex justify-center pointer-events-none">
      <div
        className={[
-         "mt-3 w-full max-w-xl rounded-xl border p-3 shadow-lg transition-all duration-300 pointer-events-auto",
+         "mt-3 w-full max-w-xl rounded-xl border p-3 shadow-lg transition-all duration-300 pointer-events-none",
          alert.show ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4",
          alert.type === "success"
            ? "bg-emerald-50 border-emerald-200 text-emerald-800"

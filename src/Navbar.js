@@ -19,6 +19,7 @@ const Navbar = ({ user: userProp }) => {
   const handleLogout = () => {
     setOpen(false);
     localStorage.removeItem("user");
+    localStorage.removeItem("isLoggedIn")
     navigate("/login");
   };
 
@@ -54,9 +55,13 @@ const Navbar = ({ user: userProp }) => {
     { label: "ระดับที่ 2", icon: <Droplet className="w-4 h-4" />, path: "/Blood" },
     { label: "Admin", icon: <UserCircle className="w-4 h-4" />, path: "/Admin" },
   ];
-  const visibleSteps = user
-  ? steps
-  : steps.filter(step => step.label !== "Admin");
+let visibleSteps;
+
+if (user?.UserName == "โรงพยาบาลเลย") {
+  visibleSteps = steps;
+} else {
+  visibleSteps = steps.filter(step => step.label !== "Admin");
+}
 
   const handleProfileClick = () => {
     navigate("/profile", {
@@ -119,7 +124,7 @@ if (location.pathname === '/ThalassemiaScreening') {
                bg-clip-text text-transparent 
                truncate max-w-[160px] sm:max-w-[220px] lg:max-w-none"
   >
-    ThalLoei Trial Version 1.0
+    ThalLoei 
   </span>
 
  {levelText && (
@@ -227,7 +232,7 @@ if (location.pathname === '/ThalassemiaScreening') {
             <span className="text-white font-semibold text-base mb-2">
               Thalaloei Trail Version 1.0
             </span>
-            {steps.map((step, i) => (
+            {visibleSteps.map((step, i) => (
               <button
                 key={i}
                 onClick={() => {
@@ -241,6 +246,13 @@ if (location.pathname === '/ThalassemiaScreening') {
                 {step.label}
               </button>
             ))}
+                    <button 
+          onClick={() => navigate('/Login')}
+         className="flex items-center gap-2 w-[80%] justify-center py-2 rounded-xl text-white font-medium 
+                           bg-white/10 hover:bg-white/20 transition-all duration-300">
+            <LogIn className="w-4 h-4" />
+            เข้าสู่ระบบ
+              </button>
           </div>
         </div>
       )}
