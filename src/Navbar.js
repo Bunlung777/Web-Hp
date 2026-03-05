@@ -118,7 +118,7 @@ if (location.pathname === '/ThalassemiaScreening') {
                bg-clip-text text-transparent 
                truncate max-w-[160px] sm:max-w-[220px] lg:max-w-none"
   >
-    ThalLoei Trial Version 1.0
+    ThalLoei
   </span>
 
  {levelText && (
@@ -226,7 +226,7 @@ if (location.pathname === '/ThalassemiaScreening') {
             <span className="text-white font-semibold text-base mb-2">
               Thalaloei Trail Version 1.0
             </span>
-            {steps.map((step, i) => (
+            {visibleSteps.map((step, i) => (
               <button
                 key={i}
                 onClick={() => {
