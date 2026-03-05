@@ -46,6 +46,7 @@ const Navbar = ({ user: userProp }) => {
       setUser(location.state.user);
       try { localStorage.setItem("user", JSON.stringify(location.state.user)); } catch {}
     }
+    console.log("Login",user?.UserName)
   }, [location.state?.user]);
 
   const steps = [
