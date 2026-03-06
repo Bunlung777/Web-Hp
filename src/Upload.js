@@ -57,7 +57,7 @@ const ImportHospitals = () => {
           }
           seen.add(String(name));
 
-          // ✅ 2. ทำการ Hash รหัสผ่าน
+
           const salt = bcrypt.genSaltSync(10);
           const hashedPassword = bcrypt.hashSync(String(code), salt);
 

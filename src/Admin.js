@@ -344,7 +344,7 @@ useEffect(() => {
                 <Th sortable onClick={() => toggleSort("UserName")} active={sortBy.key === "UserName"} dir={sortBy.dir}>หน่วยบริการ</Th>
                 <Th sortable onClick={() => toggleSort("Address")} active={sortBy.key === "Address"} dir={sortBy.dir}>อำเภอ</Th>
                 <Th sortable onClick={() => toggleSort("Role")} active={sortBy.key === "Role"} dir={sortBy.dir}>บทบาท</Th>
-                <Th>รหัสผ่าน</Th>
+                {/* <Th>รหัสผ่าน</Th> */}
                 <Th sortable onClick={() => toggleSort("Count")} active={sortBy.key === "Count"} dir={sortBy.dir}>จำนวนครั้งที่เข้าระบบ</Th>
                 <Th sortable onClick={() => toggleSort("Active")} active={sortBy.key === "Active"} dir={sortBy.dir}>สถานะ</Th>
                 <Th>การจัดการ</Th>
@@ -361,7 +361,7 @@ useEffect(() => {
                     </Td>
                     <Td className="text-gray-700">{u.Address || "-"}</Td>
                     <Td className="text-gray-700">{u.Role || "-"}</Td>
-                    <Td className="text-gray-700">{u.Password || "-"}</Td>
+                    {/* <Td className="text-gray-700">{u.Password || "-"}</Td> */}
                     <Td className="text-gray-700">{u.Count ?? 0}</Td>
                     <Td>
                       <label className="inline-flex items-center cursor-pointer select-none">
