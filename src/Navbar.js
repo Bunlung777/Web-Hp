@@ -253,6 +253,14 @@ if (location.pathname === '/ThalassemiaScreening') {
             <LogIn className="w-4 h-4" />
             เข้าสู่ระบบ
               </button>
+                            <button
+                onClick={handleProfile}
+                className="flex items-center gap-2 w-[80%] justify-center py-2 rounded-xl text-white font-medium 
+                           bg-white/10 hover:bg-white/20 transition-all duration-300"
+              >
+                <UserCircle className="w-4 h-4" />
+                ดูโปรไฟล์ของฉัน
+              </button>
           </div>
         </div>
       )}
