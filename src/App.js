@@ -53,8 +53,19 @@ const handlePrint = useReactToPrint({
   useEffect(() => {
     if (location.state?.user) {
       setUser(location.state.user);
-      console.log("รับข้อมูล user:", location.state.user);
+      try { localStorage.setItem("user", JSON.stringify(location.state.user)); } catch {}
+      console.log("รับข้อมูล user (from state):", location.state.user);
+      return;
     }
+    // fallback when refresh / direct entry
+    try {
+      const cached = localStorage.getItem("user");
+      if (cached) {
+        const u = JSON.parse(cached);
+        setUser(u);
+        console.log("รับข้อมูล user (from localStorage):", u);
+      }
+    } catch {}
   }, [location.state]);
 
 
@@ -81,29 +92,46 @@ useEffect(() => {
   }, [location.state, navigate]);
 
 async function saveStep1(user, form, result) {
-  if (!user?.id) return;
+  let activeUser = user;
+  if (!activeUser?.id) {
+    try {
+      const cached = localStorage.getItem("user");
+      activeUser = cached ? JSON.parse(cached) : null;
+    } catch {}
+  }
+  if (!activeUser?.id) {
+    showAlert("ไม่พบข้อมูลผู้ใช้ กรุณาเข้าสู่ระบบใหม่", "error", 2500);
+    return;
+  }
 
-  const userRef = doc(db, "User", user.id);
-  const sessionRef = await addDoc(collection(userRef, "TestResults"), {
-    status: result.type === "normal" ? "normal_only" : "awaiting_partner",
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
-    patient: {
-      MCV: Number(form.MCV),
-      MCH: Number(form.MCH),
-      DCIP: String(form.DCIP || "").toLowerCase(), // normalize
-      result, // {type,title,details[],advice}
-    },
-  });
+  try {
+    const userRef = doc(db, "User", activeUser.id);
+    const sessionRef = await addDoc(collection(userRef, "TestResults"), {
+      status: result.type === "normal" ? "normal_only" : "awaiting_partner",
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+      patient: {
+        MCV: Number(form.MCV),
+        MCH: Number(form.MCH),
+        DCIP: String(form.DCIP || "").toLowerCase(), // normalize
+        result, // {type,title,details[],advice}
+      },
+    });
 
-  // จดจำ session
-  setSessionId(sessionRef.id);
-  try { localStorage.setItem("lastSessionId", sessionRef.id); } catch {}
+    // จดจำ session
+    setSessionId(sessionRef.id);
+    try { localStorage.setItem("lastSessionId", sessionRef.id); } catch {}
 
-  // นับกดปุ่ม
-  await updateDoc(userRef, { CountPress: increment(1) });
+    // นับกดปุ่ม
+    await updateDoc(userRef, { CountPress: increment(1) });
 
-  return sessionRef.id;
+    showAlert("บันทึกผลระดับที่ 1 เรียบร้อย", "success", 1500);
+    return sessionRef.id;
+  } catch (e) {
+    console.error("saveStep1 failed:", e);
+    showAlert(`บันทึกไม่สำเร็จ: ${e.message}`, "error", 2500);
+    return;
+  }
 }
 
 const getStep1Result = async () => {
@@ -164,7 +192,7 @@ const getStep1Result = async () => {
 
   // เซฟผลและเริ่ม session
   setStep1Result(result);
-  await saveStep1(
+  saveStep1(
     user,
     { MCV: step1MCV, MCH: step1MCH, DCIP: dcip },
     result
