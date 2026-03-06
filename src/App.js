@@ -305,17 +305,17 @@ const isStep2Disabled = step2MCV === '' || step2MCH === '' || !step2DCIP;
   คุณกำลังอยู่ใน <span className="text-emerald-600">ระดับที่ 1</span>
 </div> */}
   <div className="fixed top-0 inset-x-0 z-50 flex justify-center pointer-events-none">
-     <div
-       className={[
-         "mt-3 w-full max-w-xl rounded-xl border p-3 shadow-lg transition-all duration-300 pointer-events-none",
-         alert.show ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4",
-         alert.type === "success"
-           ? "bg-emerald-50 border-emerald-200 text-emerald-800"
-           : "bg-red-50 border-red-200 text-red-800",
-       ].join(" ")}
-       role="status"
-       aria-live="polite"
-     >
+      <div
+        className={[
+          "mt-3 w-full max-w-xl rounded-xl border p-3 shadow-lg transition-all duration-300",
+          alert.show ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-4 pointer-events-none",
+          alert.type === "success"
+            ? "bg-emerald-50 border-emerald-200 text-emerald-800"
+            : "bg-red-50 border-red-200 text-red-800",
+        ].join(" ")}
+        role="status"
+        aria-live="polite"
+      >
        <div className="flex items-center gap-2">
          <CheckCircle className="w-5 h-5" />
          <span className="text-sm">{alert.message}</span>

@@ -124,7 +124,7 @@ if (location.pathname === '/ThalassemiaScreening') {
                bg-clip-text text-transparent 
                truncate max-w-[160px] sm:max-w-[220px] lg:max-w-none"
   >
-    ThalLoei 
+    ThalLoei
   </span>
 
  {levelText && (
