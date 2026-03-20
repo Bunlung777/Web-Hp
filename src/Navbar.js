@@ -1,5 +1,5 @@
 import React, { useState,useEffect, useRef } from 'react';
-import { Menu, X, Activity, Droplet,UserCircle, LogOut, ChevronDown,LogIn  } from 'lucide-react';
+import { Menu, X, Activity, Droplet,UserCircle, LogOut, ChevronDown,LogIn,LayoutDashboard  } from 'lucide-react';
 import { useNavigate, useLocation  } from 'react-router-dom';
 import Hp from './Img/loeih-logo_.png';
 import Lru from './Img/colormag-logolru-11.png';
@@ -54,13 +54,17 @@ const Navbar = ({ user: userProp }) => {
     { label: "ระดับที่ 1", icon: <Activity className="w-4 h-4" />, path: "/ThalassemiaScreening" },
     { label: "ระดับที่ 2", icon: <Droplet className="w-4 h-4" />, path: "/Blood" },
     { label: "Admin", icon: <UserCircle className="w-4 h-4" />, path: "/Admin" },
+    { label: "Dashboard", icon: <LayoutDashboard className="w-4 h-4" />, path: "/Dashboard" },
   ];
 let visibleSteps;
 
 if (user?.UserName == "โรงพยาบาลเลย") {
   visibleSteps = steps;
 } else {
-  visibleSteps = steps.filter(step => step.label !== "Admin");
+  visibleSteps = steps.filter(step => 
+    step.label !== "Admin" && step.label !== "Dashboard"
+  );
+  
 }
 
   const handleProfileClick = () => {
@@ -83,6 +87,9 @@ if (location.pathname === '/ThalassemiaScreening') {
 } else if (location.pathname === '/Blood') {
   levelText = 'ระดับที่ 2';
 } else if (location.pathname === '/Admin') {
+  levelText = 'Admin';
+}
+ else if (location.pathname === '/Dashborad') {
   levelText = 'Admin';
 }
 
@@ -119,13 +126,14 @@ if (location.pathname === '/ThalassemiaScreening') {
              border border-white/30 shadow-md 
              flex items-center gap-2 min-w-0"
 >
-  <span
+  <button 
+            onClick={() => navigate('/')}
     className="bg-gradient-to-r from-yellow-200 via-white to-cyan-100 
                bg-clip-text text-transparent 
                truncate max-w-[160px] sm:max-w-[220px] lg:max-w-none"
   >
     ThalLoei
-  </span>
+  </button>
 
  {levelText && (
     <span

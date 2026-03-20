@@ -4,7 +4,7 @@ import { Plus, Pencil, Trash2, X, Save, Search, CheckCircle, Shield, Building2,E
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, updateDoc, orderBy,limit,query   } from "firebase/firestore";
 import DistrictHospitalSelect from "./DistrictHospitalSelect";
-
+import Navbar from "./Navbar";
 // --- Firebase ---
 const firebaseConfig = {
   apiKey: "AIzaSyAyXiH4tR_fNFxiLJX62OFo92T0f9Zv3Qw",
@@ -288,8 +288,12 @@ useEffect(() => {
   };
 
   return (
+<div className="font-kanit">
+            <Navbar/>
+
     <div className="font-kanit mx-auto bg-white px-4 sm:px-6 lg:px-10 py-6 max-w-[1200px]">
       {/* Alert */}
+
       <div className="fixed top-0 inset-x-0 z-50 flex justify-center pointer-events-none">
         <div
           className={[
@@ -344,7 +348,7 @@ useEffect(() => {
                 <Th sortable onClick={() => toggleSort("UserName")} active={sortBy.key === "UserName"} dir={sortBy.dir}>หน่วยบริการ</Th>
                 <Th sortable onClick={() => toggleSort("Address")} active={sortBy.key === "Address"} dir={sortBy.dir}>อำเภอ</Th>
                 <Th sortable onClick={() => toggleSort("Role")} active={sortBy.key === "Role"} dir={sortBy.dir}>บทบาท</Th>
-                <Th>รหัสผ่าน</Th>
+                {/* <Th>รหัสผ่าน</Th> */}
                 <Th sortable onClick={() => toggleSort("Count")} active={sortBy.key === "Count"} dir={sortBy.dir}>จำนวนครั้งที่เข้าระบบ</Th>
                 <Th sortable onClick={() => toggleSort("Active")} active={sortBy.key === "Active"} dir={sortBy.dir}>สถานะ</Th>
                 <Th>การจัดการ</Th>
@@ -361,7 +365,7 @@ useEffect(() => {
                     </Td>
                     <Td className="text-gray-700">{u.Address || "-"}</Td>
                     <Td className="text-gray-700">{u.Role || "-"}</Td>
-                    <Td className="text-gray-700">{u.Password || "-"}</Td>
+                    {/* <Td className="text-gray-700">{u.Password || "-"}</Td> */}
                     <Td className="text-gray-700">{u.Count ?? 0}</Td>
                     <Td>
                       <label className="inline-flex items-center cursor-pointer select-none">
@@ -701,9 +705,11 @@ useEffect(() => {
       </div>
     </div>
   </div>
+
 )}
 
     </div>
+      </div>
   );
 }
 

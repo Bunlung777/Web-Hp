@@ -12,12 +12,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Profile from './Profile';
 import { createRoot } from 'react-dom/client';
 import ProtectedRoute from './ProtectedRoute';
+import Dashboard from './dashborad';
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/Blood" element={<Blood />} />
       <Route path="/Login" element={<Login />} />
+      <Route path="/Dashboard" element={<Dashboard />} />
 <Route 
           path="/Admin" 
           element={
